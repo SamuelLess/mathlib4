@@ -159,7 +159,9 @@ lemma eventually_bi_mul_le_r : ∀ᶠ (n : ℕ) in atTop, ∀ i, (b (min_bi b) /
   calc b (min_bi b) / 2 * n
     _ = b (min_bi b) * n - b (min_bi b) / 2 * n := by ring
     _ ≤ b (min_bi b) * n - ‖n / log n ^ 2‖ := by gcongr
-    _ ≤ b i * n - ‖n / log n ^ 2‖ := by gcongr; aesop
+    _ ≤ b i * n - ‖n / log n ^ 2‖ := by
+      gcongr
+      aesop (add safe apply AkraBazziRecurrence.min_bi_le) (config := { enableSimp := false })
     _ = b i * n - n / log n ^ 2 := by
       congr
       exact Real.norm_of_nonneg <| by positivity

@@ -296,7 +296,8 @@ lemma image_eq_range : A.image f = range (A.ι ≫ f) := by aesop
 
 lemma image_iSup {ι : Type*} (S : ι → X.Subcomplex) (f : X ⟶ Y) :
     image (⨆ i, S i) f = ⨆ i, (S i).image f := by
-  aesop
+  aesop (add simp [image_obj, Subfunctor.iSup_obj, Set.mem_image, Set.mem_iUnion])
+    (simp_config := { contextual := false }) (config := { useDefaultSimpSet := false })
 
 @[simp]
 lemma preimage_range : (range f).preimage f = ⊤ :=

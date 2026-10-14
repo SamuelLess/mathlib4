@@ -58,6 +58,9 @@ theorem primaryComponent_mem (x : M) :
       use max x y
       simp [torsionBySet_le_torsionBySet_pow]
   · aesop (add safe Submodule.mem_iSup_of_mem)
+      (add simp [mem_torsionBySet_iff, SetLike.coe_sort_coe, Subtype.forall])
+      (config := { useDefaultSimpSet := false, useSimpAll := false })
+      (simp_config := { contextual := false })
 
 theorem primaryComponent_map_mem (φ : M₁ →ₗ[A] M₂) (c : primaryComponent M₁ I) :
     φ c ∈ primaryComponent M₂ I := by

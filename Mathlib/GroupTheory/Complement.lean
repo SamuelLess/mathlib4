@@ -206,7 +206,9 @@ lemma isComplement_iff_existsUnique_mul_inv_mem :
     IsComplement S T ↔ ∀ g, ∃! t : T, g * (t : G)⁻¹ ∈ S := by
   convert! isComplement_iff_existsUnique with g
   constructor <;> rintro ⟨x, hx, hx'⟩
-  · exact ⟨(⟨_, hx⟩, x), by simp, by aesop⟩
+  · exact ⟨(⟨_, hx⟩, x), by simp, by
+      aesop (add simp [Subtype.forall, Subtype.mk.injEq, mul_inv_cancel_right])
+        (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })⟩
   · exact ⟨x.2, by simp [← hx], fun y hy ↦ (Prod.ext_iff.1 <| by simpa using hx' (⟨_, hy⟩, y)).2⟩
 
 @[to_additive]

@@ -474,7 +474,8 @@ theorem map_eq_map_of_bij_of_nodup (f : α → γ) (g : β → γ) {s : Multiset
     (i_surj : ∀ b ∈ t, ∃ a ha, i a ha = b) (h : ∀ a ha, f a = g (i a ha)) : s.map f = t.map g := by
   have : t = s.attach.map fun x => i x.1 x.2 := by
     rw [ht.ext]
-    · aesop
+    · aesop (add simp [mem_map, mem_attach, true_and, Subtype.exists])
+        (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
     · exact hs.attach.map fun x y hxy ↦ Subtype.ext <| i_inj _ x.2 _ y.2 hxy
   calc
     s.map f = s.pmap (fun x _ => f x) fun _ => id := by rw [pmap_eq_map]

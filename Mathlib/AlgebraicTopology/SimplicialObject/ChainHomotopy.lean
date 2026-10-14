@@ -85,10 +85,18 @@ private lemma comm_succ (n : ℕ) :
   let γ₂ (x : Fin (n + 1) × Fin (n + 2)) := (x.2.succ, x.1.castSucc)
   let γ₃ (i : Fin (n + 1)) := (i.castSucc.succ, i.succ)
   let γ₄ (i : Fin (n + 1)) := (i.castSucc.succ, i.castSucc)
-  have hγ₁ : Function.Injective γ₁ := fun _ _ ↦ by aesop
-  have hγ₂ : Function.Injective γ₂ := fun _ _ ↦ by aesop
-  have hγ₃ : Function.Injective γ₃ := fun _ _ ↦ by aesop
-  have hγ₄ : Function.Injective γ₄ := fun _ _ ↦ by aesop
+  have hγ₁ : Function.Injective γ₁ := fun _ _ ↦ by
+    aesop (add simp [Prod.mk.injEq, Fin.castSucc_inj, Fin.succ_inj, and_self])
+      (config := { useDefaultSimpSet := false })
+  have hγ₂ : Function.Injective γ₂ := fun _ _ ↦ by
+    aesop (add simp [Prod.mk.injEq, Fin.castSucc_inj, Fin.succ_inj, and_self])
+      (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
+  have hγ₃ : Function.Injective γ₃ := fun _ _ ↦ by
+    aesop (add simp [Prod.mk.injEq, Fin.castSucc_inj, Fin.succ_inj, and_self])
+      (config := { useDefaultSimpSet := false })
+  have hγ₄ : Function.Injective γ₄ := fun _ _ ↦ by
+    aesop (add simp [Prod.mk.injEq, Fin.castSucc_inj, Fin.succ_inj, and_self])
+      (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
   have eq₁ : H.h 0 ≫ Y.δ 0 = β ⟨0, 0⟩ := by simp [β]
   have eq₂ : H.h (Fin.last _) ≫ Y.δ (Fin.last _) = - β ⟨Fin.last _, Fin.last _⟩ := by
     dsimp [β]

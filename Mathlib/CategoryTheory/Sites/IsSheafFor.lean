@@ -972,7 +972,8 @@ lemma isSeparatedFor_singleton {X Y : C} {f : X ⟶ Y} :
   rw [IsSeparatedFor, Equiv.forall_congr_left (Presieve.FamilyOfElements.singletonEquiv P f)]
   simp_rw [FamilyOfElements.isAmalgamation_singleton_iff,
     FamilyOfElements.singletonEquiv_symm_apply_self, Function.Injective]
-  aesop
+  aesop (erase Aesop.BuiltinRules.ext) (config := { useDefaultSimpSet := false })
+    (simp_config := { contextual := false })
 
 lemma isSheafFor_singleton {X Y : C} {f : X ⟶ Y} :
     Presieve.IsSheafFor P (.singleton f) ↔

@@ -598,7 +598,10 @@ lemma mem_convexHull_pi (h : ∀ i ∈ s, x i ∈ convexHull 𝕜 (t i)) : x ∈
     ∑ g : {g : ∀ k, κ k // g i = j}, ∏ k, w k (g.1 k)
       = ∑ g ∈ piFinset fun k ↦ if hk : k = i then hk ▸ {j} else univ, ∏ k, w k (g k) :=
       Finset.sum_bij' (fun g _ ↦ g) (fun g hg ↦ ⟨g, by simpa using mem_piFinset.1 hg i⟩)
-        (by aesop) (by simp) (by simp) (by simp) (by simp)
+        (by
+          aesop (add simp [Finset.mem_univ, mem_piFinset, Finset.mem_singleton])
+            (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false }))
+        (by simp) (by simp) (by simp) (by simp)
     _ = w i j := by
       rw [← prod_univ_sum, ← prod_mul_prod_compl, Finset.prod_singleton, Finset.sum_eq_single,
         Finset.prod_eq_one, mul_one] <;> simp +contextual [hw₁]

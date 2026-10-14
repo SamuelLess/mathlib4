@@ -258,7 +258,8 @@ theorem isPretransitive_alternatingGroup [Fintype α] (hα : 3 ≤ Nat.card α) 
     by_cases hn' : n ≤ Nat.card α
     · apply IsPretransitive.of_surjective_map
         (mulActionHom_compl_bijective (alternatingGroup α) α _).surjective this
-      aesop
+      aesop (add simp [Nat.card_eq_fintype_card, add_tsub_cancel_of_le])
+        (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
     · suffices Subsingleton (powersetCard α n) by infer_instance
       rw [not_le] at hn'
       rw [← Finite.card_le_one_iff_subsingleton, powersetCard.card,

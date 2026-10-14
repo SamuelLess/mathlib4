@@ -150,7 +150,11 @@ instance MulEquiv.instFintype
     {α β : Type*} [Mul α] [Mul β] [DecidableEq α] [DecidableEq β] [Fintype α] [Fintype β] :
     Fintype (α ≃* β) where
   elems := Equiv.instFintype.elems.filterMap
-    (fun e => if h : ∀ a b : α, e (a * b) = e a * e b then (⟨e, h⟩ : α ≃* β) else none) (by aesop)
+    (fun e => if h : ∀ a b : α, e (a * b) = e a * e b then (⟨e, h⟩ : α ≃* β) else none) (by
+      aesop
+        (add simp [Option.mem_def, Option.dite_none_right_eq_some, Option.some.injEq,
+          MulEquiv.mk.injEq]) (config := { useDefaultSimpSet := false })
+        (simp_config := { contextual := false }))
   complete me := (Finset.mem_filterMap ..).mpr ⟨me.toEquiv, Finset.mem_univ _, by {simp; rfl}⟩
 
 theorem Fintype.card_perm [Fintype α] : Fintype.card (Perm α) = (Fintype.card α)! :=

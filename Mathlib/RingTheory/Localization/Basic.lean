@@ -644,7 +644,8 @@ theorem map_injective_of_injective' {f : R →+* S} {Rₘ : Type*} [CommRing R�
     Function.Injective (map Sₘ f hf : Rₘ →+* Sₘ) := by
   refine (injective_iff_map_eq_zero (map Sₘ f hf)).mpr fun x h ↦ ?_
   obtain ⟨x, s, rfl⟩ := IsLocalization.exists_mk'_eq M x
-  aesop (add simp [map_mk', mk'_eq_zero_iff])
+  aesop (add simp [map_mk', mk'_eq_zero_iff, (hf'.eq_iff' (map_zero f))])
+    (rule_sets := [-default, -SetLike, -finsetNonempty])
 
 end IsLocalization
 

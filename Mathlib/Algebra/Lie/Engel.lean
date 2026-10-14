@@ -176,7 +176,7 @@ theorem Function.Surjective.isEngelian {f : L →ₗ⁅R⁆ L₂} (hf : Function
   have surj_id : Function.Surjective (LinearMap.id : M →ₗ[R] M) := Function.surjective_id
   have : LieModule.IsNilpotent L M := h M hnp
   apply hf.lieModuleIsNilpotent _ surj_id
-  aesop
+  aesop (add simp [LinearMap.id_coe, id_eq]) (config := { useDefaultSimpSet := false })
 
 theorem LieEquiv.isEngelian_iff (e : L ≃ₗ⁅R⁆ L₂) :
     LieAlgebra.IsEngelian.{u₁, u₂, u₄} R L ↔ LieAlgebra.IsEngelian.{u₁, u₃, u₄} R L₂ :=

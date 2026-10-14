@@ -111,7 +111,9 @@ variable [LinearOrder R] [IsStrictOrderedRing R]
 
 theorem nonneg_iff_isSquare {x : R} : 0 ≤ x ↔ IsSquare x where
   mp h := by
-    suffices IsSquare (-x) → x = 0 by aesop
+    suffices IsSquare (-x) → x = 0 by
+      aesop (add simp [neg_zero, IsSquare.zero, Std.le_refl, forall_const])
+        (config := { useDefaultSimpSet := false })
     exact fun hc ↦ le_antisymm (nonpos_of_neg_nonneg (IsSquare.nonneg hc)) h
   mpr := IsSquare.nonneg
 

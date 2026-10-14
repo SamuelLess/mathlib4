@@ -520,7 +520,7 @@ lemma meromorphicOrderAt_finprod_ne_top {x : 𝕜} {ι : Type*} {F : ι → 𝕜
     simp only [pow_add, pow_one, meromorphicOrderAt_mul (hf.pow n) hf, hn, Nat.cast_add,
       Nat.cast_one]
     cases meromorphicOrderAt f x
-    · aesop
+    · aesop (add simp [add_top]) (config := { useDefaultSimpSet := false })
     · norm_cast
       simp only [Nat.cast_add, Nat.cast_one]
       ring

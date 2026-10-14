@@ -71,11 +71,12 @@ theorem _root_.Ideal.le_colon {I : Ideal R} {S : Set R} [I.IsTwoSided] : I ≤ I
 
 theorem iInf_colon_iUnion (ι₁ : Sort*) (f : ι₁ → Submodule R M) (ι₂ : Sort*) (g : ι₂ → Set M) :
     (⨅ i, f i).colon (⋃ j, g j) = ⨅ (i) (j), (f i).colon (g j) := by
-  aesop (add simp mem_colon)
+  aesop (add simp [mem_colon, Set.mem_iUnion, mem_iInf, forall_exists_index])
+    (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
 
 /-- If `S ⊆ N₂`, then intersecting with `N₂` does not change the colon ideal. -/
 lemma colon_inf_eq_left_of_subset (h : S ⊆ (N₂ : Set M)) : (N₁ ⊓ N₂).colon S = N₁.colon S := by
-  aesop (add simp mem_colon)
+  aesop (add simp [mem_colon, mem_inf, true_and]) (config := { useDefaultSimpSet := false })
 
 @[simp]
 lemma colon_eq_top_iff_subset (S : Set M) : N.colon S = ⊤ ↔ S ⊆ N := by

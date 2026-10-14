@@ -421,7 +421,7 @@ theorem archimedeanClassMk_eq_iff [IsOrderedAddMonoid R] (x y : f.val.domain) :
   trans ArchimedeanClass.mk x = .mk y
   · exact Function.Injective.eq_iff <| orderHom_injective <| toOrderAddMonoidHom_injective _
   · simp_rw [mk_eq_mk]
-    aesop
+    aesop (config := { enableSimp := false })
 
 /-- Archimedean equivalence of input is transferred to `HahnSeries.orderTop` equality. -/
 theorem orderTop_eq_iff [IsOrderedAddMonoid R] [Archimedean R] (x y : f.val.domain) :

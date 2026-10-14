@@ -91,7 +91,9 @@ theorem closure_mul_self : closure {x * x | x ≠ (0 : R)} = sumNonzeroSq R := b
     -- `aesop` times out
     apply add_mem
     · apply AddSubsemigroup.mem_closure_of_mem
-      aesop
+      aesop (rule_sets := [-default, -SetLike])
+        (add simp [ne_eq, Set.mem_ofPred_eq, not_false_eq_true])
+        (config := { useDefaultSimpSet := false })
     aesop
 
 end AddSubsemigroup

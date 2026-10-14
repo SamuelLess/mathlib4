@@ -480,7 +480,7 @@ variable {P : N → Prop}
 lemma forall_mem_sup {s t : Submonoid N} :
     (∀ x ∈ s ⊔ t, P x) ↔ (∀ x₁ ∈ s, ∀ x₂ ∈ t, P (x₁ * x₂)) := by
   simp [mem_sup]
-  aesop
+  aesop (config := { enableSimp := false })
 
 @[to_additive, simp high]
 lemma exists_mem_sup {s t : Submonoid N} :

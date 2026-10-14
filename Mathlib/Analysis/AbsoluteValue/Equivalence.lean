@@ -82,7 +82,9 @@ theorem IsEquiv.eq_one_iff (h : v.IsEquiv w) {x : R} : v x = 1 ↔ w x = 1 := by
 
 theorem IsEquiv.isNontrivial_congr {w : AbsoluteValue R S} (h : v.IsEquiv w) :
     v.IsNontrivial ↔ w.IsNontrivial :=
-  not_iff_not.1 <| by aesop (add simp [not_isNontrivial_iff, h.eq_one_iff])
+  not_iff_not.1 <| by
+    aesop (add simp [not_isNontrivial_iff, ne_eq, h.eq_one_iff])
+      (config := { useDefaultSimpSet := false })
 
 alias ⟨IsEquiv.isNontrivial, _⟩ := IsEquiv.isNontrivial_congr
 

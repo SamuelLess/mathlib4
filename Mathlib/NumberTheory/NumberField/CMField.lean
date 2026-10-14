@@ -466,7 +466,9 @@ theorem eq_maximalRealSubfield (E : Subfield K) [IsTotallyReal E] [IsQuadraticEx
     · contrapose h
       rw [← SetLike.coe_set_eq, Subfield.coe_toIntermediateField] at h
       rw [← sup_eq_left, ← SetLike.coe_set_eq, h, IntermediateField.coe_bot]
-      aesop
+      aesop (add simp [Set.mem_range, Subtype.exists, SetLike.mem_coe])
+        (config := { useDefaultSimpSet := false }) (erase Aesop.BuiltinRules.applyHyps)
+        (simp_config := { contextual := false })
   have : Algebra.IsAlgebraic (maximalRealSubfield K) K :=
     Algebra.IsAlgebraic.tower_top (K := ℚ) (maximalRealSubfield K)
   have : IsTotallyReal K := (h' ▸ isTotallyReal_sup).ofRingEquiv Subring.topEquiv

@@ -147,7 +147,9 @@ protected def D : CoxeterMatrix (Fin n) where
         else (if (j : ℕ) + 1 = i ∨ (i : ℕ) + 1 = j then 3 else 2))
   isSymm := by unfold Matrix.IsSymm; aesop
   diagonal := by simp
-  off_diagonal := by aesop
+  off_diagonal := by
+    aesop (add simp [Matrix.of_apply, ite_true, ite_false, OfNat.ofNat_ne_one])
+      (config := { useDefaultSimpSet := false })
 
 /-- The Coxeter matrix of type I₂(m).
 

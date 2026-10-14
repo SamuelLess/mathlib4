@@ -170,11 +170,13 @@ theorem image_sInter_subset (S : Set (Set α)) (f : α → β) : f '' ⋂₀ S �
 
 theorem image2_sInter_right_subset (t : Set α) (S : Set (Set β)) (f : α → β → γ) :
     image2 f t (⋂₀ S) ⊆ ⋂ s ∈ S, image2 f t s := by
-  aesop
+  aesop (add simp [subset_iInter_iff, image2_subset_iff, mem_sInter, mem_image2])
+    (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
 
 theorem image2_sInter_left_subset (S : Set (Set α)) (t : Set β) (f : α → β → γ) :
     image2 f (⋂₀ S) t ⊆ ⋂ s ∈ S, image2 f s t := by
-  aesop
+  aesop (add simp [subset_iInter_iff, image2_subset_iff, mem_sInter, mem_image2])
+    (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
 
 /-! ### `restrictPreimage` -/
 
@@ -526,11 +528,13 @@ theorem image2_iUnion_right (s : Set α) (t : ι → Set β) :
 
 theorem image2_sUnion_left (S : Set (Set α)) (t : Set β) :
     image2 f (⋃₀ S) t = ⋃ s ∈ S, image2 f s t := by
-  aesop
+  aesop (add simp [mem_image2, mem_sUnion, mem_iUnion, exists_prop])
+    (config := { useDefaultSimpSet := false })
 
 theorem image2_sUnion_right (s : Set α) (T : Set (Set β)) :
     image2 f s (⋃₀ T) = ⋃ t ∈ T, image2 f s t := by
-  aesop
+  aesop (add simp [mem_image2, mem_sUnion, mem_iUnion, exists_prop])
+    (config := { useDefaultSimpSet := false })
 
 theorem image2_iUnion₂_left (s : ∀ i, κ i → Set α) (t : Set β) :
     image2 f (⋃ (i) (j), s i j) t = ⋃ (i) (j), image2 f (s i j) t := by simp_rw [image2_iUnion_left]

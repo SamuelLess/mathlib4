@@ -98,7 +98,9 @@ theorem isUpperSet_preimage_toDual_iff {s : Set αᵒᵈ} : IsUpperSet (toDual �
 
 @[to_dual]
 lemma IsUpperSet.isLowerSet_preimage_coe (hs : IsUpperSet s) :
-    IsLowerSet ((↑) ⁻¹' t : Set s) ↔ ∀ b ∈ s, ∀ c ∈ t, b ≤ c → b ∈ t := by aesop
+    IsLowerSet ((↑) ⁻¹' t : Set s) ↔ ∀ b ∈ s, ∀ c ∈ t, b ≤ c → b ∈ t := by
+  aesop (add simp [mem_preimage, Subtype.forall, Subtype.mk_le_mk])
+    (config := { useDefaultSimpSet := false }) (simp_config := { contextual := false })
 
 @[to_dual]
 lemma IsUpperSet.sdiff (hs : IsUpperSet s) (ht : ∀ b ∈ s, ∀ c ∈ t, b ≤ c → b ∈ t) :

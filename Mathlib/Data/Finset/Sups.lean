@@ -489,7 +489,8 @@ theorem disjSups_inter_subset_right : s ○ (t₁ ∩ t₂) ⊆ s ○ t₁ ∩ s
 variable (s t)
 
 theorem disjSups_comm : s ○ t = t ○ s := by
-  aesop (add simp disjoint_comm, simp sup_comm)
+  aesop (add simp [mem_disjSups, disjoint_comm, sup_comm, and_self])
+    (config := { useDefaultSimpSet := false })
 
 instance : @Std.Commutative (Finset α) (· ○ ·) := ⟨disjSups_comm⟩
 
@@ -659,7 +660,7 @@ variable [DecidableEq α]
   simp_rw [← image_compl]; exact image_image₂_distrib fun _ _ ↦ compl_sup
 
 @[simp] lemma infs_compls_eq_diffs (s t : Finset α) : s ⊼ tᶜˢ = s \\ t := by
-  ext; simp [sdiff_eq]; aesop
+  ext; simp [sdiff_eq]; aesop (add simp compl_compl) (config := { useDefaultSimpSet := false })
 
 @[simp] lemma compls_infs_eq_diffs (s t : Finset α) : sᶜˢ ⊼ t = t \\ s := by
   rw [infs_comm, infs_compls_eq_diffs]

@@ -385,7 +385,8 @@ public theorem minimax
       forall_apply_eq_imp_iff₂] at hc
     apply not_le.mpr htc (le_trans (hc x hx) _)
     rw [isLUB_le_iff (hsup_y x hx), mem_upperBounds]
-    aesop
+    aesop (add simp [mem_ofPred_eq]) (config := { useDefaultSimpSet := false })
+      (simp_config := { contextual := false })
   obtain ⟨s, hs⟩ := this
   have hs' (x) (hx : x ∈ X) : ∃ y ∈ Subtype.val '' (s : Set Y), t < f x y := by
     obtain ⟨i, hi, hi'⟩ := hs x hx

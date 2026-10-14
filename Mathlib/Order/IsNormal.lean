@@ -216,7 +216,8 @@ theorem ext_iff [OrderBot α] {g : α → β} (hf : IsNormal f) (hg : IsNormal g
   | isSuccLimit a ha IH =>
     apply (hf.isLUB_image_Iio_of_isSuccLimit ha).unique
     convert hg.isLUB_image_Iio_of_isSuccLimit ha using 1
-    aesop
+    aesop (add safe apply Set.image_congr) (add simp [mem_Iio, eq_self_iff_true])
+      (rule_sets := [-default, -SetLike]) (config := { useDefaultSimpSet := false })
 
 theorem exists_map_le_lt_map_succ_of_exists_ge [NoMaxOrder α] [OrderBot α] [WellFoundedLT β]
     {f : α → β} {x : β} (hf : IsNormal f) (hf' : ∃ y, x ≤ f y) (hx : f ⊥ ≤ x) :

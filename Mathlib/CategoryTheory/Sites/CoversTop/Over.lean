@@ -29,7 +29,9 @@ lemma CoversTop.over {I : Type*} {X : I → C} (hX : J.CoversTop X) {I' : I → 
     {Y : (i : I) → I' i → Over (X i)} (hY : ∀ i, (J.over (X i)).CoversTop (Y i)) :
     J.CoversTop (fun (j : (i : I) × I' i) ↦ (Y j.1 j.2).left) :=
   fun j ↦ J.transitive (hX j) _ fun Z f ⟨i, ⟨g⟩⟩ ↦ J.superset_covering
-    ((Sieve.functorPushforward_ofObjects_le _ _ _).trans (Sieve.ofObjects_mono fun i' ↦ by aesop))
+    ((Sieve.functorPushforward_ofObjects_le _ _ _).trans (Sieve.ofObjects_mono fun i' ↦ by
+      aesop (add simp [Set.mem_range, Function.comp_apply, Over.forget_obj, Sigma.exists])
+        (config := { useDefaultSimpSet := false })))
     (hY _ (.mk g))
 
 end CategoryTheory.GrothendieckTopology

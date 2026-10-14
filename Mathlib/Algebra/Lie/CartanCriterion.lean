@@ -108,7 +108,11 @@ theorem isNilpotent_derivedSeries_of_traceForm_eq_zero_aux {K : Type*}
     have : Nontrivial (s.eigenspace ν) :=
       Submodule.nontrivial_iff_ne_bot.mpr (hasEigenvalue_iff.mp hν)
     replace hν : ν ∈ E := Submodule.subset_span ⟨⟨ν, ⟨0, finrank_pos⟩⟩, rfl⟩
-    have : Subsingleton E := (subsingleton_dual_iff ℚ).mp ⟨by aesop⟩
+    have : Subsingleton E := (subsingleton_dual_iff ℚ).mp ⟨by
+      aesop
+        (add simp [derivedSeriesOfIdeal_succ, derivedSeriesOfIdeal_zero,
+          DirectSum.IsInternal.collectedBasis_coe, mem_genEigenspace_one])
+        (config := { useDefaultSimpSet := false })⟩
     simpa using! Subsingleton.elim (⟨ν, hν⟩ : E) 0
   intro f
   /- It suffices to show that any `f : Dual ℚ E` vanishes on all the eigenvalues of `s`. -/

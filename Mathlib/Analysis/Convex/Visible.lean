@@ -61,7 +61,7 @@ lemma IsVisible.mono (hst : s ⊆ t) (ht : IsVisible 𝕜 t x y) : IsVisible �
 lemma isVisible_iff_lineMap (hxy : x ≠ y) :
     IsVisible 𝕜 s x y ↔ ∀ δ ∈ Set.Ioo (0 : 𝕜) 1, lineMap x y δ ∉ s := by
   simp [IsVisible, sbtw_iff_mem_image_Ioo_and_ne, hxy]
-  aesop
+  aesop (add simp ne_eq) (config := { useDefaultSimpSet := false })
 
 end AddTorsor
 

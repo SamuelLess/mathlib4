@@ -61,7 +61,8 @@ lemma isProper_iff_inter_eq_indicator_mul (h𝓑𝓧 : 𝓑 ≤ 𝓧) :
   calc
     _ ↔ ∀ ⦃A : Set X⦄ (_hA : MeasurableSet[𝓧] A) ⦃B : Set X⦄ (hB : MeasurableSet[𝓑] B) (x : X),
           π.restrict (h𝓑𝓧 _ hB) x A = B.indicator 1 x * π x A := by
-      simp [isProper_iff_restrict_eq_indicator_smul h𝓑𝓧, Measure.ext_iff]; aesop
+      simp [isProper_iff_restrict_eq_indicator_smul h𝓑𝓧, Measure.ext_iff]
+      aesop (config := { useDefaultSimpSet := false })
     _ ↔ _ := by congr! 5 with A hA B hB x; rw [restrict_apply, Measure.restrict_apply hA]
 
 alias ⟨IsProper.restrict_eq_indicator_smul, IsProper.of_restrict_eq_indicator_smul⟩ :=

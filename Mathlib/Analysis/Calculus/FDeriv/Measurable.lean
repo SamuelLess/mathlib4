@@ -364,6 +364,8 @@ theorem measurableSet_of_differentiableAt_of_isComplete {K : Set (E →L[𝕜] F
   aesop
     (add safe apply [MeasurableSet.iUnion, MeasurableSet.iInter, isOpen_B])
     (add unsafe IsOpen.measurableSet)
+    (config := { enableSimp := false }) (erase Aesop.BuiltinRules.applyHyps)
+    (rule_sets := [-default])
 
 variable [CompleteSpace F]
 

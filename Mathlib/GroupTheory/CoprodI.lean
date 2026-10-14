@@ -666,7 +666,9 @@ def toWord {i j} (w : NeWord M i j) : Word M where
     · simpa only [toList, List.mem_singleton, ne_eq, forall_eq]
     · intro l h
       simp only [toList, List.mem_append] at h
-      cases h <;> aesop
+      cases h <;>
+        aesop (add simp [ne_eq, not_false_eq_true]) (config := { useDefaultSimpSet := false })
+          (simp_config := { contextual := false })
   chain_ne := by
     induction w
     · exact List.isChain_singleton _

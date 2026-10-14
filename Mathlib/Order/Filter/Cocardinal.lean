@@ -50,7 +50,7 @@ instance instCardinalInterFilter_cocardinal : CardinalInterFilter (cocardinal (�
     apply mul_lt_of_lt hreg.aleph0_le (mk_image_le.trans_lt hS) (iSup_lt_of_lt_cof_ord ..)
     · rw [hreg.cof_ord]
       exact mk_image_le.trans_lt hS
-    · aesop
+    · aesop (add simp [mem_cocardinal, Set.mem_image]) (config := { useDefaultSimpSet := false })
 
 @[simp]
 theorem eventually_cocardinal {p : α → Prop} :

@@ -217,7 +217,7 @@ theorem continuous_cfcHomSuperset_left
   | mul f g hf hg => simpa using! hf.mul hg
   | frequently f hf =>
     apply continuous_of_uniform_approx_of_continuous
-    rw [Metric.uniformity_basis_dist_le.forall_iff (by aesop)]
+    rw [Metric.uniformity_basis_dist_le.forall_iff (by aesop (config := { enableSimp := false }))]
     intro ε hε
     simp only [Set.mem_ofPred_eq, dist_eq_norm]
     obtain ⟨g, hg, g_cont⟩ := frequently_iff.mp hf (Metric.closedBall_mem_nhds f hε)

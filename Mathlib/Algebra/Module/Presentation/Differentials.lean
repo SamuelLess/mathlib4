@@ -126,6 +126,8 @@ lemma surjective_hom₁ : Function.Surjective (hom₁ pres) := by
     simp only [← pres.span_range_relation_eq_ker]
     congr
     aesop
+      (add simp [Generators.toExtension_Ring, Set.mem_image, Set.mem_range, exists_exists_eq_and])
+      (config := { useDefaultSimpSet := false })
   rw [← LinearMap.range_eq_top] at h₁ ⊢
   rw [← top_le_iff, ← h₁, LinearMap.range_eq_map, ← h₂]
   dsimp
