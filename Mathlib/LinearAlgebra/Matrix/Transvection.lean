@@ -402,7 +402,7 @@ theorem listTransvecCol_mul_last_col (hM : M (inr unit) (inr unit) ≠ 0) (i : F
     by_cases h : n' = i
     · have hni : n = i := by
         cases i
-        simp only [n', Fin.mk_eq_mk] at h
+        simp only [n', Fin.mk.inj_iff] at h
         simp [h]
       simp only [h, transvection_mul_apply_same, IH, ← hni, add_le_iff_nonpos_right,
           listTransvecCol_mul_last_row_drop _ _ hn]
@@ -478,7 +478,7 @@ theorem mul_listTransvecRow_last_row (hM : M (inr unit) (inr unit) ≠ 0) (i : F
     by_cases h : n' = i
     · have hni : n = i := by
         cases i
-        simp only [n', Fin.mk_eq_mk] at h
+        simp only [n', Fin.mk.inj_iff] at h
         simp only [h]
       have : ¬n.succ ≤ i := by simp only [← hni, n.lt_succ_self, not_le]
       simp only [h, mul_transvection_apply_same, ite_false,

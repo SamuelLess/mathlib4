@@ -67,7 +67,7 @@ theorem List.exists_pw_disjoint_with_card {α : Type*} [Fintype α]
     intro u hu v hv huv
     apply disjoint_pmap
     · intro a a' ha ha' h
-      simpa only [klift, Fin.mk_eq_mk] using h
+      simpa only [klift, Fin.mk.inj_iff] using h
     exact huv
 
 end Ranges

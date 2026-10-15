@@ -302,7 +302,7 @@ theorem colorable_iff_exists_bdd_nat_coloring (n : ℕ) :
     refine ⟨Coloring.mk ?_ ?_⟩
     · exact fun v => ⟨C v, Cf v⟩
     · rintro v w hvw
-      simp only [Fin.mk_eq_mk, Ne]
+      simp only [Fin.mk.inj_iff, Ne]
       exact C.valid hvw
 
 theorem colorable_iff_forall_connectedComponent {n : ℕ} :

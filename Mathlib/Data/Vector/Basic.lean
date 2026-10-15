@@ -350,7 +350,7 @@ theorem scanl_get (i : Fin n) :
   · exact i.elim0
   induction n generalizing b with
   | zero =>
-    have i0 : i = 0 := Fin.eq_zero _
+    have i0 : i = 0 := Fin.fin_one_eq_zero _
     simp [scanl_singleton, i0, get_zero]; simp [get_eq_get_toList]
   | succ n hn =>
     rw [← cons_head_tail v]

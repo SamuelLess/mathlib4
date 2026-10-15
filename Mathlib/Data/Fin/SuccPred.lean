@@ -201,21 +201,12 @@ theorem exists_fin_succ' {P : Fin (n + 1) → Prop} :
   ⟨fun ⟨i, h⟩ => Fin.lastCases Or.inr (fun i hi => Or.inl ⟨i, hi⟩) i h,
    fun h => h.elim (fun ⟨i, hi⟩ => ⟨i.castSucc, hi⟩) (fun h => ⟨.last _, h⟩)⟩
 
-/--
-The `Fin.castSucc_zero` in `Lean` only applies in `Fin (n+1)`.
-This one instead uses a `NeZero n` typeclass hypothesis.
--/
-@[simp]
-theorem castSucc_zero' [NeZero n] : castSucc (0 : Fin n) = 0 := rfl
+@[deprecated (since := "2026-10-08")] alias castSucc_zero' := Fin.castSucc_zero
 
 @[simp]
 theorem castSucc_pos_iff [NeZero n] {i : Fin n} : 0 < castSucc i ↔ 0 < i := by simp [← val_pos_iff]
 
-/-- `castSucc i` is positive when `i` is positive.
-
-The `Fin.castSucc_pos` in `Lean` only applies in `Fin (n+1)`.
-This one instead uses a `NeZero n` typeclass hypothesis. -/
-alias ⟨_, castSucc_pos'⟩ := castSucc_pos_iff
+@[deprecated (since := "2026-10-08")] alias castSucc_pos' := Fin.castSucc_pos
 
 theorem castSucc_ne_zero_of_lt {p i : Fin n} (h : p < i) : castSucc i ≠ 0 := by
   cases n
@@ -343,7 +334,7 @@ theorem castPred_eq_iff_eq_castSucc (i : Fin (n + 1)) (hi : i ≠ last _) (j : F
 
 @[simp]
 theorem castPred_mk (i : ℕ) (h₁ : i < n) (h₂ := Nat.lt_trans h₁ (Nat.lt_succ_self _))
-    (h₃ : ⟨i, h₂⟩ ≠ last _ := (ne_iff_vne _ _).mpr (val_last _ ▸ Nat.ne_of_lt h₁)) :
+    (h₃ : ⟨i, h₂⟩ ≠ last _ := val_ne_iff.mp (val_last _ ▸ Nat.ne_of_lt h₁)) :
     castPred ⟨i, h₂⟩ h₃ = ⟨i, h₁⟩ := rfl
 
 @[simp]
@@ -586,7 +577,7 @@ lemma succAbove_right_inj : p.succAbove i = p.succAbove j ↔ i = j :=
 @[simp]
 lemma succAbove_ne_zero_zero [NeZero n] {a : Fin (n + 1)} (ha : a ≠ 0) : a.succAbove 0 = 0 := by
   rw [Fin.succAbove_of_castSucc_lt]
-  · exact castSucc_zero'
+  · exact castSucc_zero
   · exact Fin.pos_iff_ne_zero.2 ha
 
 lemma succAbove_eq_zero_iff [NeZero n] {a : Fin (n + 1)} {b : Fin n} (ha : a ≠ 0) :
@@ -646,7 +637,7 @@ lemma lt_succAbove_iff_lt_castSucc (p : Fin (n + 1)) (i : Fin n) :
 /-- Embedding a positive `Fin n` results in a positive `Fin (n + 1)` -/
 lemma succAbove_pos [NeZero n] (p : Fin (n + 1)) (i : Fin n) (h : 0 < i) : 0 < p.succAbove i := by
   by_cases H : castSucc i < p
-  · simpa [succAbove_of_castSucc_lt _ _ H] using castSucc_pos' h
+  · simpa [succAbove_of_castSucc_lt _ _ H] using castSucc_pos h
   · simp [succAbove_of_le_castSucc _ _ (Fin.not_lt.1 H)]
 
 lemma castPred_succAbove (x : Fin n) (y : Fin (n + 1)) (h : castSucc x < y)

@@ -68,11 +68,9 @@ variable {n m : ℕ}
 theorem val_injective : Function.Injective (@Fin.val n) :=
   @Fin.eq_of_val_eq n
 
-/-- If you actually have an element of `Fin n`, then the `n` is always positive -/
-lemma size_positive : Fin n → 0 < n := Fin.pos
+@[deprecated (since := "2026-10-08")] alias size_positive := Fin.pos
 
-lemma size_positive' [Nonempty (Fin n)] : 0 < n :=
-  ‹Nonempty (Fin n)›.elim Fin.pos
+@[deprecated (since := "2026-10-08")] alias size_positive' := Fin.pos'
 
 protected theorem prop (a : Fin n) : a.val < n :=
   a.2
@@ -118,11 +116,11 @@ section coe
 theorem val_eq_val (a b : Fin n) : (a : ℕ) = b ↔ a = b :=
   Fin.ext_iff.symm
 
+@[deprecated Fin.val_ne_iff +typeChanged (since := "2026-10-08")]
 theorem ne_iff_vne (a b : Fin n) : a ≠ b ↔ a.1 ≠ b.1 :=
-  Fin.ext_iff.not
+  Fin.val_ne_iff.symm
 
-theorem mk_eq_mk {a h a' h'} : @mk n a h = @mk n a' h' ↔ a = a' :=
-  Fin.ext_iff
+@[deprecated (since := "2026-10-08")] alias mk_eq_mk := Fin.mk.inj_iff
 
 /-- Assume `k = l`. If two functions defined on `Fin k` and `Fin l` are equal on each element,
 then they coincide (in the heq sense). -/
@@ -204,12 +202,9 @@ theorem mk_zero' (n : ℕ) [NeZero n] : (⟨0, pos_of_neZero n⟩ : Fin n) = 0 :
 theorem val_pos_iff [NeZero n] {a : Fin n} : 0 < a.val ↔ 0 < a := by
   rw [← val_fin_lt, val_zero]
 
-/--
-The `Fin.pos_iff_ne_zero` in `Lean` only applies in `Fin (n+1)`.
-This one instead uses a `NeZero n` typeclass hypothesis.
--/
-theorem pos_iff_ne_zero' [NeZero n] (a : Fin n) : 0 < a ↔ a ≠ 0 := by
-  rw [← val_pos_iff, Nat.pos_iff_ne_zero, val_ne_zero_iff]
+@[deprecated Fin.pos_iff_ne_zero (since := "2026-10-08")]
+theorem pos_iff_ne_zero' [NeZero n] (a : Fin n) : 0 < a ↔ a ≠ 0 :=
+  Fin.pos_iff_ne_zero
 
 @[simp] lemma cast_eq_self (a : Fin n) : a.cast rfl = a := rfl
 
@@ -489,7 +484,7 @@ theorem liftFun_iff_succ {α : Type*} (r : α → α → Prop) [IsTrans α r] {f
 
 section AddGroup
 
-theorem eq_zero (n : Fin 1) : n = 0 := Subsingleton.elim _ _
+@[deprecated (since := "2026-10-08")] alias eq_zero := Fin.fin_one_eq_zero
 
 lemma eq_one_of_ne_zero (i : Fin 2) (hi : i ≠ 0) : i = 1 := by lia
 

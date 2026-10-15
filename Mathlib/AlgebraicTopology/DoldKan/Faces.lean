@@ -169,7 +169,7 @@ theorem induction {Y : C} {n q : ℕ} {φ : Y ⟶ X _⦋n + 1⦌} (v : HigherFac
   rw [v.comp_Hσ_eq (show n = a + q by lia), neg_comp, add_neg_eq_zero, assoc, assoc]
   rcases n with - | m
   -- the boundary case n=0
-  · simp only [Nat.eq_zero_of_add_eq_zero_left ha, Fin.eq_zero j, Fin.mk_zero,
+  · simp only [Nat.eq_zero_of_add_eq_zero_left ha, Fin.fin_one_eq_zero j, Fin.mk_zero,
       δ_comp_σ_succ, comp_id]
     rfl
   -- in the other case, we need to write n as m+1

@@ -106,7 +106,7 @@ theorem rev_last_eq_bot (n : ℕ) : rev (last n) = ⊥ := by rw [rev_last, bot_e
 
 @[simp]
 theorem succ_top (n : ℕ) [NeZero n] : (⊤ : Fin n).succ = ⊤ := by
-  rw [← rev_zero_eq_top, ← rev_zero_eq_top, ← rev_castSucc, castSucc_zero']
+  rw [← rev_zero_eq_top, ← rev_zero_eq_top, ← rev_castSucc, castSucc_zero]
 
 @[simp]
 theorem val_top (n : ℕ) [NeZero n] : ((⊤ : Fin n) : ℕ) = n - 1 := rfl
@@ -272,7 +272,7 @@ lemma predAbove_le_predAbove {p q : Fin n} (hpq : p ≤ q) {i j : Fin (n + 1)} (
 /-- `predAbove` is injective at the pivot -/
 lemma predAbove_left_injective : Injective (@predAbove n) := by
   intro i j hij
-  obtain ⟨n, rfl⟩ := Nat.exists_add_one_eq.2 i.size_positive
+  obtain ⟨n, rfl⟩ := Nat.exists_add_one_eq.2 i.pos
   wlog! h : i < j generalizing i j
   · obtain h | rfl := h.lt_or_eq
     · exact (this hij.symm h).symm
