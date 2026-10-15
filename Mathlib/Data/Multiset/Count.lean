@@ -155,7 +155,7 @@ theorem count_cons (a b : α) (s : Multiset α) :
   countP_cons (a = ·) _ _
 
 theorem count_singleton_self (a : α) : count a ({a} : Multiset α) = 1 :=
-  count_eq_one_of_mem (nodup_singleton a) <| mem_singleton_self a
+  List.Nodup.count_of_mem (List.nodup_singleton a) (List.mem_singleton_self a)
 
 theorem count_singleton (a b : α) : count a ({b} : Multiset α) = if a = b then 1 else 0 := by
   simp only [count_cons, ← cons_zero, count_zero, Nat.zero_add]
@@ -222,10 +222,10 @@ variable {s : Multiset α} {a : α}
 theorem nodup_iff_count_le_one [DecidableEq α] {s : Multiset α} : Nodup s ↔ ∀ a, count a s ≤ 1 :=
   Quot.induction_on s fun _l => by
     simp only [quot_mk_to_coe'', coe_nodup, coe_count]
-    exact List.nodup_iff_count_le_one
+    exact List.nodup_iff_count
 
 theorem nodup_iff_count_eq_one [DecidableEq α] : Nodup s ↔ ∀ a ∈ s, count a s = 1 :=
-  Quot.induction_on s fun _l => by simpa using List.nodup_iff_count_eq_one
+  Quot.induction_on s fun _l => by simpa using List.nodup_iff_count_of_mem
 
 @[simp]
 theorem count_eq_one_of_mem [DecidableEq α] {a : α} {s : Multiset α} (d : Nodup s) (h : a ∈ s) :

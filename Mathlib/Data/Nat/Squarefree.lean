@@ -66,7 +66,7 @@ lemma factorization_eq_one_of_squarefree (hn : Squarefree n) (hp : p.Prime) (hpn
 
 theorem squarefree_of_factorization_le_one {n : ℕ} (hn : n ≠ 0) (hn' : ∀ p, n.factorization p ≤ 1) :
     Squarefree n := by
-  rw [squarefree_iff_nodup_primeFactorsList hn, List.nodup_iff_count_le_one]
+  rw [squarefree_iff_nodup_primeFactorsList hn, List.nodup_iff_count]
   intro a
   rw [primeFactorsList_count_eq]
   apply hn'

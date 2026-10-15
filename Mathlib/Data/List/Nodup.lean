@@ -93,11 +93,7 @@ theorem Nodup.get_inj_iff {l : List α} (h : Nodup l) {i j : Fin l.length} :
     l.get i = l.get j ↔ i = j :=
   (nodup_iff_injective_get.1 h).eq_iff
 
-theorem Nodup.getElem_inj_iff {l : List α} (h : Nodup l)
-    {i : Nat} {hi : i < l.length} {j : Nat} {hj : j < l.length} :
-    l[i] = l[j] ↔ i = j := by
-  have := @Nodup.get_inj_iff _ _ h ⟨i, hi⟩ ⟨j, hj⟩
-  simpa
+@[deprecated (since := "2026-10-08")] alias Nodup.getElem_inj_iff := Nodup.getElem_inj
 
 theorem nodup_iff_getElem?_ne_getElem? {l : List α} :
     l.Nodup ↔ ∀ i j : ℕ, i < j → j < l.length → l[i]? ≠ l[j]? := by
@@ -132,29 +128,23 @@ theorem get_idxOf [BEq α] [LawfulBEq α] {l : List α} (H : Nodup l) (i : Fin l
     idxOf (get l i) l = i := by
   simp [H]
 
-theorem nodup_iff_count_le_one [BEq α] [LawfulBEq α] {l : List α} : Nodup l ↔ ∀ a, count a l ≤ 1 :=
-  nodup_iff_sublist.trans <|
-    forall_congr' fun a =>
-      have : replicate 2 a <+ l ↔ 1 < count a l := replicate_sublist_iff ..
-      (not_congr this).trans Nat.not_lt
+@[deprecated (since := "2026-10-08")] alias nodup_iff_count_le_one := nodup_iff_count
 
-theorem nodup_iff_count_eq_one [BEq α] [LawfulBEq α] : Nodup l ↔ ∀ a ∈ l, count a l = 1 :=
-  nodup_iff_count_le_one.trans <| forall_congr' fun x => by rw [← count_pos_iff]; grind
+@[deprecated (since := "2026-10-08")] alias nodup_iff_count_eq_one := nodup_iff_count_of_mem
 
 theorem get_bijective_iff [BEq α] [LawfulBEq α] : l.get.Bijective ↔ ∀ a, l.count a = 1 :=
-  ⟨fun h a ↦ (nodup_iff_count_eq_one.mp <| nodup_iff_injective_get.mpr h.injective)
+  ⟨fun h a ↦ (nodup_iff_count_of_mem.mp <| nodup_iff_injective_get.mpr h.injective)
     a <| mem_iff_get.mpr <| h.surjective a,
-  fun h ↦ ⟨nodup_iff_injective_get.mp <| nodup_iff_count_eq_one.mpr fun a _ ↦ h a,
+  fun h ↦ ⟨nodup_iff_injective_get.mp <| nodup_iff_count_of_mem.mpr fun a _ ↦ h a,
     fun a ↦ mem_iff_get.mp <| List.one_le_count_iff.mp <| by grind⟩⟩
 
 theorem getElem_bijective_iff [BEq α] [LawfulBEq α] :
     (fun (n : Fin l.length) ↦ l[n]).Bijective ↔ ∀ a, l.count a = 1 :=
   get_bijective_iff
 
-@[simp]
-theorem count_eq_one_of_mem [BEq α] [LawfulBEq α] {a : α} {l : List α} (d : Nodup l) (h : a ∈ l) :
-    count a l = 1 :=
-  nodup_iff_count_eq_one.mp d a h
+attribute [simp] Nodup.count_of_mem
+
+@[deprecated (since := "2026-10-08")] alias count_eq_one_of_mem := Nodup.count_of_mem
 
 theorem Nodup.of_append_left : Nodup (l₁ ++ l₂) → Nodup l₁ :=
   Nodup.sublist (sublist_append_left l₁ l₂)

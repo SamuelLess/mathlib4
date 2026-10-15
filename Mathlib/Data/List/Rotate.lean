@@ -340,7 +340,7 @@ theorem Nodup.rotate_congr {l : List α} (hl : l.Nodup) (hn : l ≠ []) (i j : �
     (h : l.rotate i = l.rotate j) : i % l.length = j % l.length := by
   rw [← rotate_mod l i, ← rotate_mod l j] at h
   simpa only [head?_rotate, mod_lt, length_pos_of_ne_nil hn, getElem?_eq_getElem, Option.some_inj,
-    hl.getElem_inj_iff, Fin.ext_iff] using congr(head? $h)
+    hl.getElem_inj, Fin.ext_iff] using congr(head? $h)
 
 theorem Nodup.rotate_congr_iff {l : List α} (hl : l.Nodup) {i j : ℕ} :
     l.rotate i = l.rotate j ↔ i % l.length = j % l.length ∨ l = [] := by

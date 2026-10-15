@@ -107,7 +107,7 @@ theorem nodup_permsOfList : ∀ {l : List α}, l.Nodup → (permsOfList l).Nodup
         rw [← hf.2, mul_apply, hmeml hf.1, swap_apply_left]
       have hiy : x a = l[j] := by
         rw [← hg.2, mul_apply, hmeml hg.1, swap_apply_left]
-      have hieqj : i = j := hl'.getElem_inj_iff.1 (hix.symm.trans hiy)
+      have hieqj : i = j := hl'.getElem_inj.1 (hix.symm.trans hiy)
       exact absurd hieqj (_root_.ne_of_lt hij)
     · intro f hf₁ hf₂
       let ⟨x, hx, hx'⟩ := List.mem_flatMap.1 hf₂

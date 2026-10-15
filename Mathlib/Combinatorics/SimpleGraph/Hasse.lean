@@ -187,7 +187,7 @@ def IsPath.pathGraphIsoToSubgraph (hw : w.IsPath) :
   map_rel_iff' := by
     refine ⟨fun hadj ↦ ?_, w.pathGraphHomToSubgraph.map_rel'⟩
     grind [w.toSubgraph_adj_iff.mp hadj, pathGraph_adj, getVert_eq_getD_support,
-      pathGraphHomToSubgraph, RelHom.coeFn_mk, hw.support_nodup.getElem_inj_iff]
+      pathGraphHomToSubgraph, RelHom.coeFn_mk, hw.support_nodup.getElem_inj]
 
 variable {w} in
 /-- A path induces an injective homomorphism from a path graph to the graph -/

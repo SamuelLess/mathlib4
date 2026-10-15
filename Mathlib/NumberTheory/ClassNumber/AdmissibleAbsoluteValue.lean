@@ -102,7 +102,7 @@ theorem exists_approx_aux (n : ℕ) (h : abv.IsAdmissible) :
       rwa [Finset.length_toList]
     refine ⟨fun i ↦ (Finset.toList {x | t x = s})[i.castLE this], fun i j h ↦ ?_,
       fun i₀ i₁ ↦ ht _ _ ?_⟩
-    · simpa [(Finset.nodup_toList _).getElem_inj_iff, Fin.val_inj] using h
+    · simpa [(Finset.nodup_toList _).getElem_inj, Fin.val_inj] using h
     · have (i : Fin (M ^ n).succ) : t (Finset.toList {x | t x = s})[i.castLE this] = s :=
         (Finset.mem_filter.mp ((Finset.mem_toList (s := {x | t x = s})).mp (List.getElem_mem _))).2
       simp_rw [this]

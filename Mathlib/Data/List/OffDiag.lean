@@ -86,14 +86,14 @@ protected theorem Perm.offDiag {l₁ l₂ : List α} (h : l₁ ~ l₂) : l₁.of
 
 protected theorem Nodup.offDiag (h : l.Nodup) : l.offDiag.Nodup := by
   let := Classical.decEq α
-  rw [nodup_iff_count_le_one]
+  rw [nodup_iff_count]
   rintro ⟨x, y⟩
   rw [count_offDiag_eq_mul_sub_ite l x y]
   grind
 
 protected theorem Nodup.of_offDiag (h : l.offDiag.Nodup) : l.Nodup := by
   let := Classical.decEq α
-  simp only [nodup_iff_count_le_one, Prod.forall, count_offDiag_eq_mul_sub_ite] at *
+  simp only [nodup_iff_count, Prod.forall, count_offDiag_eq_mul_sub_ite] at *
   intro a
   specialize h a a
   contrapose h
@@ -117,9 +117,9 @@ theorem Nodup.mem_offDiag (h : l.Nodup) {x : α × α} :
   simp_rw [mem_offDiag_iff_getElem, mem_iff_getElem, Ne]
   constructor
   · rintro ⟨i, hi, j, hj, hne, rfl, rfl⟩
-    exact ⟨⟨i, hi, rfl⟩, ⟨j, hj, rfl⟩, mt h.getElem_inj_iff.1 hne⟩
+    exact ⟨⟨i, hi, rfl⟩, ⟨j, hj, rfl⟩, mt h.getElem_inj.1 hne⟩
   · rintro ⟨⟨i, hi, rfl⟩, ⟨j, hj, rfl⟩, hne⟩
-    exact ⟨i, hi, j, hj, mt h.getElem_inj_iff.2 hne, rfl, rfl⟩
+    exact ⟨i, hi, j, hj, mt h.getElem_inj.2 hne, rfl, rfl⟩
 
 theorem map_prodMap_offDiag {β : Type*} (f : α → β) (l : List α) :
     map (Prod.map f f) l.offDiag = (map f l).offDiag := by

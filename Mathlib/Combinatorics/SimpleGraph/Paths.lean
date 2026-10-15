@@ -184,11 +184,11 @@ theorem isPath_append' (p : G.Walk u v) (q : G.Walk v w) :
 
 theorem IsTrail.count_edges_le_one [DecidableEq V] {u v : V} {p : G.Walk u v} (h : p.IsTrail)
     (e : Sym2 V) : p.edges.count e ≤ 1 :=
-  List.nodup_iff_count_le_one.mp h.edges_nodup e
+  List.nodup_iff_count.mp h.edges_nodup e
 
 theorem IsTrail.count_edges_eq_one [DecidableEq V] {u v : V} {p : G.Walk u v} (h : p.IsTrail)
     {e : Sym2 V} (he : e ∈ p.edges) : p.edges.count e = 1 :=
-  List.count_eq_one_of_mem h.edges_nodup he
+  h.edges_nodup.count_of_mem he
 
 theorem IsTrail.length_le_card_edgeFinset [Fintype G.edgeSet] {u v : V}
     {w : G.Walk u v} (h : w.IsTrail) : w.length ≤ G.edgeFinset.card := by
@@ -677,14 +677,14 @@ lemma IsCycle.isPath_takeUntil {c : G.Walk v v} (hc : c.IsCycle) (h : w ∈ c.su
   exact (c.takeUntil w h).isPath_reverse_iff.mp (hc.isPath_of_append_right (not_nil_of_ne hvw))
 
 theorem IsCycle.count_support {c : G.Walk v v} (hc : c.IsCycle) : c.support.count v = 2 := by
-  have := List.count_eq_one_of_mem hc.support_nodup <| c.end_mem_tail_support hc.not_nil
+  have := hc.support_nodup.count_of_mem <| c.end_mem_tail_support hc.not_nil
   have := c.head_support ▸ List.head?_eq_some_head c.support_ne_nil
   grind
 
 theorem IsCycle.count_support_of_mem {c : G.Walk v v} (hc : c.IsCycle) (hu : u ∈ c.support)
     (hv : u ≠ v) : c.support.count u = 1 := by
   have := List.eq_or_mem_of_mem_cons <| List.cons_head_tail c.support_ne_nil ▸ hu
-  have := List.count_eq_one_of_mem hc.support_nodup <| this.resolve_left <| head_support _ ▸ hv
+  have := hc.support_nodup.count_of_mem <| this.resolve_left <| head_support _ ▸ hv
   have := c.head_support ▸ List.head?_eq_some_head c.support_ne_nil
   grind
 
@@ -764,11 +764,11 @@ def reverse {u v : V} (p : G.Path u v) : G.Path v u :=
 
 theorem count_support_eq_one [DecidableEq V] {u v w : V} {p : G.Path u v}
     (hw : w ∈ (p : G.Walk u v).support) : (p : G.Walk u v).support.count w = 1 :=
-  List.count_eq_one_of_mem p.property.support_nodup hw
+  p.property.support_nodup.count_of_mem hw
 
 theorem count_edges_eq_one [DecidableEq V] {u v : V} {p : G.Path u v} (e : Sym2 V)
     (hw : e ∈ (p : G.Walk u v).edges) : (p : G.Walk u v).edges.count e = 1 :=
-  List.count_eq_one_of_mem p.property.isTrail.edges_nodup hw
+  p.property.isTrail.edges_nodup.count_of_mem hw
 
 @[simp]
 theorem nodup_support {u v : V} (p : G.Path u v) : (p : G.Walk u v).support.Nodup :=

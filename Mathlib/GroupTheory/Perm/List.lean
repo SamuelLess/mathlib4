@@ -304,7 +304,7 @@ theorem formPerm_ext_iff {x y x' y' : α} {l l' : List α} (hd : Nodup (x :: y :
 theorem formPerm_apply_mem_eq_self_iff (hl : Nodup l) (x : α) (hx : x ∈ l) :
     formPerm l x = x ↔ length l ≤ 1 := by
   obtain ⟨k, hk, rfl⟩ := getElem_of_mem hx
-  rw [formPerm_apply_getElem _ hl k hk, hl.getElem_inj_iff]
+  rw [formPerm_apply_getElem _ hl k hk, hl.getElem_inj]
   cases hn : l.length
   · exact absurd k.zero_le (hk.trans_le hn.le).not_ge
   · rw [hn] at hk

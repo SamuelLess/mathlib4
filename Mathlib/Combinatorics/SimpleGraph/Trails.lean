@@ -63,7 +63,7 @@ def IsEulerian (p : G.Walk u v) : Prop :=
   ∀ e, e ∈ G.edgeSet → p.edges.count e = 1
 
 theorem IsEulerian.isTrail (h : p.IsEulerian) : p.IsTrail := by
-  rw [isTrail_def, List.nodup_iff_count_eq_one]
+  rw [isTrail_def, List.nodup_iff_count_of_mem]
   exact (h · <| p.edges_subset_edgeSet ·)
 
 theorem IsEulerian.mem_edges_iff (h : p.IsEulerian) {e : Sym2 V} : e ∈ p.edges ↔ e ∈ G.edgeSet :=
@@ -76,7 +76,7 @@ def IsEulerian.fintypeEdgeSet (h : p.IsEulerian) : Fintype G.edgeSet :=
 
 theorem IsTrail.isEulerian_of_forall_mem (h : p.IsTrail) (hc : ∀ e, e ∈ G.edgeSet → e ∈ p.edges) :
     p.IsEulerian :=
-  (List.count_eq_one_of_mem h.edges_nodup <| hc · ·)
+  (h.edges_nodup.count_of_mem <| hc · ·)
 
 theorem isEulerian_iff (p : G.Walk u v) :
     p.IsEulerian ↔ p.IsTrail ∧ ∀ e, e ∈ G.edgeSet → e ∈ p.edges where

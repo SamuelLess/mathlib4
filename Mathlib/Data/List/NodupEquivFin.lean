@@ -78,7 +78,7 @@ section Sorted
 @[simps!]
 def getEquivOfForallCountEqOne [DecidableEq α] (l : List α) (h : ∀ x, l.count x = 1) :
     Fin l.length ≃ α :=
-  Nodup.getEquivOfForallMemList _ (List.nodup_iff_count_eq_one.mpr fun _ _ ↦ h _)
+  Nodup.getEquivOfForallMemList _ (List.nodup_iff_count_of_mem.mpr fun _ _ ↦ h _)
     fun _ ↦ List.count_pos_iff.mp <| h _ ▸ Nat.one_pos
 
 variable [Preorder α] {l : List α}
