@@ -904,10 +904,10 @@ theorem eq_ratNorm (q : ℚ_[p]) : ‖q‖ = ratNorm q :=
 theorem norm_rat_le_one : ∀ {q : ℚ} (_ : ¬p ∣ q.den), ‖(q : ℚ_[p])‖ ≤ 1
   | ⟨n, d, hn, hd⟩ => fun hq : ¬p ∣ d ↦
     if hnz : n = 0 then by
-      have : (⟨n, d, hn, hd⟩ : ℚ) = 0 := Rat.zero_iff_num_zero.mpr hnz
+      have : (⟨n, d, hn, hd⟩ : ℚ) = 0 := Rat.num_eq_zero.mp hnz
       simp [this]
     else by
-      have hnz' : (⟨n, d, hn, hd⟩ : ℚ) ≠ 0 := mt Rat.zero_iff_num_zero.1 hnz
+      have hnz' : (⟨n, d, hn, hd⟩ : ℚ) ≠ 0 := mt Rat.num_eq_zero.2 hnz
       rw [eq_padicNorm]
       norm_cast
       -- Porting note: `Nat.cast_zero` instead of another `norm_cast` call

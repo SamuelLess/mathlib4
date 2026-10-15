@@ -214,8 +214,9 @@ theorem den_zero : Rat.den 0 = 1 :=
 
 lemma zero_of_num_zero {q : ℚ} (hq : q.num = 0) : q = 0 := by simpa [hq] using q.num_divInt_den.symm
 
+@[deprecated Rat.num_eq_zero +typeChanged (since := "2026-10-08")]
 theorem zero_iff_num_zero {q : ℚ} : q = 0 ↔ q.num = 0 :=
-  ⟨fun _ => by simp [*], zero_of_num_zero⟩
+  num_eq_zero.symm
 
 -- `Not `@[simp]` as `num_ofNat` is stronger.
 theorem num_one : (1 : ℚ).num = 1 :=

@@ -65,11 +65,11 @@ protected def rec {α : ℚ≥0 → Sort*} (h : ∀ m n : ℕ, α (m / n)) (q : 
 theorem mul_num (q₁ q₂ : ℚ≥0) :
     (q₁ * q₂).num = q₁.num * q₂.num / Nat.gcd (q₁.num * q₂.num) (q₁.den * q₂.den) := by
   zify
-  convert! Rat.mul_num q₁ q₂ <;> norm_cast
+  convert! Rat.num_mul q₁ q₂ <;> norm_cast
 
 theorem mul_den (q₁ q₂ : ℚ≥0) :
     (q₁ * q₂).den = q₁.den * q₂.den / Nat.gcd (q₁.num * q₂.num) (q₁.den * q₂.den) := by
-  convert! Rat.mul_den q₁ q₂
+  convert! Rat.den_mul q₁ q₂
   norm_cast
 
 /-- A version of `NNRat.mul_den` without division. -/

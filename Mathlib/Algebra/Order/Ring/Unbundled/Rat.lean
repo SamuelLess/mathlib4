@@ -61,8 +61,9 @@ protected lemma divInt_le_divInt {a b c d : ℤ} (b0 : 0 < b) (d0 : 0 < d) :
   rw [Rat.le_iff_sub_nonneg, ← Int.sub_nonneg]
   simp [sub_eq_add_neg, ne_of_gt b0, ne_of_gt d0, Int.mul_pos d0 b0]
 
+@[deprecated Rat.lt_iff_le_and_not_ge (since := "2026-10-08")]
 protected lemma lt_iff_le_not_ge (a b : ℚ) : a < b ↔ a ≤ b ∧ ¬b ≤ a :=
-  Std.LawfulOrderLT.lt_iff a b
+  Rat.lt_iff_le_and_not_ge
 
 instance linearOrder : LinearOrder ℚ where
   le_refl _ := Rat.le_refl
@@ -72,7 +73,7 @@ instance linearOrder : LinearOrder ℚ where
   toDecidableEq := inferInstance
   toDecidableLE := inferInstance
   toDecidableLT := inferInstance
-  lt_iff_le_not_ge := Rat.lt_iff_le_not_ge
+  lt_iff_le_not_ge _ _ := Rat.lt_iff_le_and_not_ge
 
 theorem mkRat_nonneg_iff (a : ℤ) {b : ℕ} (hb : b ≠ 0) : 0 ≤ mkRat a b ↔ 0 ≤ a :=
   divInt_nonneg_iff_of_pos_right (show 0 < (b : ℤ) by simpa using Nat.pos_of_ne_zero hb)

@@ -213,7 +213,7 @@ theorem isInt_ratNum : ∀ {q : ℚ} {n : ℤ} {n' : ℕ} {d : ℕ},
   | _, n, _, d, ⟨hi, rfl⟩, rfl, h => by
     constructor
     have : 0 < d := Nat.pos_iff_ne_zero.mpr <| by simpa using hi.ne_zero
-    simp_rw [Rat.mul_num, Rat.den_intCast, invOf_eq_inv,
+    simp_rw [Rat.num_mul, Rat.den_intCast, invOf_eq_inv,
       Rat.inv_natCast_den_of_pos this, Rat.inv_natCast_num_of_pos this,
       Rat.num_intCast, one_mul, mul_one, h, Nat.cast_one, Int.ediv_one, Int.cast_id]
 
@@ -222,7 +222,7 @@ theorem isNat_ratDen : ∀ {q : ℚ} {n : ℤ} {n' : ℕ} {d : ℕ},
   | _, n, _, d, ⟨hi, rfl⟩, rfl, h => by
     constructor
     have : 0 < d := Nat.pos_iff_ne_zero.mpr <| by simpa using hi.ne_zero
-    simp_rw [Rat.mul_den, Rat.den_intCast, invOf_eq_inv,
+    simp_rw [Rat.den_mul, Rat.den_intCast, invOf_eq_inv,
       Rat.inv_natCast_den_of_pos this, Rat.inv_natCast_num_of_pos this,
       Rat.num_intCast, one_mul, mul_one, Nat.cast_id, h, Nat.div_one]
 

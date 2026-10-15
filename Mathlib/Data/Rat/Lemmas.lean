@@ -80,14 +80,9 @@ theorem mul_den_dvd (q₁ q₂ : ℚ) : (q₁ * q₂).den ∣ q₁.den * q₂.de
   apply Nat.div_dvd_of_dvd
   apply Nat.gcd_dvd_right
 
-theorem mul_num (q₁ q₂ : ℚ) :
-    (q₁ * q₂).num = q₁.num * q₂.num / Nat.gcd (q₁.num * q₂.num).natAbs (q₁.den * q₂.den) := by
-  rw [mul_def, normalize_eq]
+@[deprecated (since := "2026-10-08")] alias mul_num := Rat.num_mul
 
-theorem mul_den (q₁ q₂ : ℚ) :
-    (q₁ * q₂).den =
-      q₁.den * q₂.den / Nat.gcd (q₁.num * q₂.num).natAbs (q₁.den * q₂.den) := by
-  rw [mul_def, normalize_eq]
+@[deprecated (since := "2026-10-08")] alias mul_den := Rat.den_mul
 
 @[simp]
 theorem add_intCast_den (q : ℚ) (n : ℤ) : (q + n).den = q.den := by
@@ -124,26 +119,26 @@ theorem natCast_sub_den (n : ℕ) (q : ℚ) : (n - q).den = q.den := mod_cast in
 @[simp] theorem sub_ofNat_den (q : ℚ) (n : ℕ) : (q - ofNat(n)).den = q.den := sub_natCast_den ..
 @[simp] theorem ofNat_sub_den (n : ℕ) (q : ℚ) : (ofNat(n) - q).den = q.den := natCast_sub_den ..
 
-/-- A version of `Rat.mul_den` without division. -/
+/-- A version of `Rat.den_mul` without division. -/
 theorem den_mul_den_eq_den_mul_gcd (q₁ q₂ : ℚ) :
     q₁.den * q₂.den = (q₁ * q₂).den * ((q₁.num * q₂.num).natAbs.gcd (q₁.den * q₂.den)) := by
-  rw [mul_den]
+  rw [den_mul]
   exact ((Nat.dvd_iff_div_mul_eq _ _).mp (Nat.gcd_dvd_right _ _)).symm
 
-/-- A version of `Rat.mul_num` without division. -/
+/-- A version of `Rat.num_mul` without division. -/
 theorem num_mul_num_eq_num_mul_gcd (q₁ q₂ : ℚ) :
     q₁.num * q₂.num = (q₁ * q₂).num * ((q₁.num * q₂.num).natAbs.gcd (q₁.den * q₂.den)) := by
-  rw [mul_num]
+  rw [num_mul]
   refine (Int.ediv_mul_cancel ?_).symm
   rw [← Int.dvd_natAbs]
   exact Int.ofNat_dvd.mpr (Nat.gcd_dvd_left _ _)
 
 theorem mul_self_num (q : ℚ) : (q * q).num = q.num * q.num := by
-  rw [mul_num, Int.natAbs_mul, Nat.Coprime.gcd_eq_one, Int.ofNat_one, Int.ediv_one]
+  rw [num_mul, Int.natAbs_mul, Nat.Coprime.gcd_eq_one, Int.ofNat_one, Int.ediv_one]
   exact (q.reduced.mul_right q.reduced).mul_left (q.reduced.mul_right q.reduced)
 
 theorem mul_self_den (q : ℚ) : (q * q).den = q.den * q.den := by
-  rw [Rat.mul_den, Int.natAbs_mul, Nat.Coprime.gcd_eq_one, Nat.div_one]
+  rw [Rat.den_mul, Int.natAbs_mul, Nat.Coprime.gcd_eq_one, Nat.div_one]
   exact (q.reduced.mul_right q.reduced).mul_left (q.reduced.mul_right q.reduced)
 
 theorem add_num_den (q r : ℚ) :
