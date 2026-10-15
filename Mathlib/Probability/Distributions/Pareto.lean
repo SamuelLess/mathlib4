@@ -108,7 +108,7 @@ lemma lintegral_paretoPDF_eq_one (ht : 0 < t) (hr : 0 < r) :
     filter_upwards with x hx using by positivity [lt_of_lt_of_le ht hx]
   · apply (measurable_paretoPDFReal t r).aestronglyMeasurable.congr
     refine (ae_restrict_iff' measurableSet_Ici).mpr <| ae_of_all _ fun x (hx : t ≤ x) ↦ ?_
-    simp_rw [paretoPDFReal, eq_true_intro hx, ite_true]
+    simp_rw [paretoPDFReal, eq_true hx, ite_true]
 
 end ParetoPDF
 

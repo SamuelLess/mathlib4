@@ -562,13 +562,7 @@ export Classical (not_forall)
 theorem not_forall_not : (¬∀ x, ¬p x) ↔ ∃ x, p x :=
   open scoped Classical in Decidable.not_forall_not
 
-export Classical (not_exists_not)
-
-lemma forall_or_exists_not (P : α → Prop) : (∀ a, P a) ∨ ∃ a, ¬P a := by
-  rw [← not_forall]; exact em _
-
-lemma exists_or_forall_not (P : α → Prop) : (∃ a, P a) ∨ ∀ a, ¬P a := by
-  rw [← not_exists]; exact em _
+export Classical (not_exists_not forall_or_exists_not exists_or_forall_not)
 
 theorem forall_imp_iff_exists_imp {α : Sort*} {p : α → Prop} {b : Prop} [ha : Nonempty α] :
     (∀ x, p x) → b ↔ ∃ x, p x → b := by
@@ -730,12 +724,11 @@ theorem forall_prop_congr' {p p' : Prop} {q q' : p → Prop} (hq : ∀ h, q h �
 lemma imp_congr_eq {a b c d : Prop} (h₁ : a = c) (h₂ : b = d) : (a → b) = (c → d) :=
   propext (imp_congr h₁.to_iff h₂.to_iff)
 
-lemma imp_congr_ctx_eq {a b c d : Prop} (h₁ : a = c) (h₂ : c → b = d) : (a → b) = (c → d) :=
-  propext (imp_congr_ctx h₁.to_iff fun hc ↦ (h₂ hc).to_iff)
+@[deprecated (since := "2026-10-08")] alias imp_congr_ctx_eq := implies_congr_ctx
 
-lemma eq_true_intro {a : Prop} (h : a) : a = True := propext (iff_true_intro h)
+@[deprecated (since := "2026-10-08")] alias eq_true_intro := eq_true
 
-lemma eq_false_intro {a : Prop} (h : ¬a) : a = False := propext (iff_false_intro h)
+@[deprecated (since := "2026-10-08")] alias eq_false_intro := eq_false
 
 -- FIXME: `alias` creates `def Iff.eq := propext` instead of `lemma Iff.eq := propext`
 alias Iff.eq := propext

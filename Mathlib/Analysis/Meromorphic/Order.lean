@@ -99,7 +99,7 @@ lemma meromorphicOrderAt_eq_int_iff {n : ℤ} (hf : MeromorphicAt f x) : meromor
   simp only [meromorphicOrderAt, hf, ↓reduceDIte]
   by_cases h : analyticOrderAt (fun z ↦ (z - x) ^ hf.choose • f z) x = ⊤
   · rw [h, ENat.map_top, ← WithTop.coe_natCast, top_sub,
-      eq_false_intro WithTop.top_ne_coe, false_iff]
+      eq_false WithTop.top_ne_coe, false_iff]
     rw [analyticOrderAt_eq_top] at h
     refine fun ⟨g, hg_an, hg_ne, hg_eq⟩ ↦ hg_ne ?_
     apply EventuallyEq.eq_of_nhds

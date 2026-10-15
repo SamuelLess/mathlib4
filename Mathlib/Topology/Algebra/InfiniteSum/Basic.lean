@@ -453,7 +453,7 @@ theorem tprod_eq_prod [L.LeAtTop] {s : Finset β} (hf : ∀ b ∉ s, f b = 1) :
 @[to_additive (attr := simp)]
 theorem tprod_one : ∏'[L] _, (1 : α) = 1 := by
   rw [tprod_def, dite_eq_left multipliable_one, mulSupport_fun_one, Set.empty_inter,
-    Set.mulIndicator_one, finprod_one, eq_true_intro hasProd_one, ite_true, ite_self]
+    Set.mulIndicator_one, finprod_one, eq_true hasProd_one, ite_true, ite_self]
 
 @[to_additive (attr := simp)]
 theorem tprod_empty [IsEmpty β] : ∏'[L] b, f b = 1 := by

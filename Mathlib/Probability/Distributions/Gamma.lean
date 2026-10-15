@@ -117,7 +117,7 @@ lemma lintegral_gammaPDF_eq_one {a r : ℝ} (ha : 0 < a) (hr : 0 < r) :
     exact ae_of_all _ (fun x (hx : 0 ≤ x) ↦ by positivity)
   · apply (measurable_gammaPDFReal a r).aestronglyMeasurable.congr
     refine (ae_restrict_iff' measurableSet_Ici).mpr <| ae_of_all _ fun x (hx : 0 ≤ x) ↦ ?_
-    simp_rw [gammaPDFReal, eq_true_intro hx, ite_true]
+    simp_rw [gammaPDFReal, eq_true hx, ite_true]
 
 end GammaPDF
 

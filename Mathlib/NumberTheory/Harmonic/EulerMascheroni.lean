@@ -89,7 +89,7 @@ lemma strictAnti_eulerMascheroniSeq' : StrictAnti eulerMascheroniSeq' := by
   refine strictAnti_nat_of_succ_lt (fun n ↦ ?_)
   rcases Nat.eq_zero_or_pos n with rfl | hn
   · simp [eulerMascheroniSeq']
-  simp_rw [eulerMascheroniSeq', eq_false_intro hn.ne', reduceCtorEq, ite_false]
+  simp_rw [eulerMascheroniSeq', eq_false hn.ne', reduceCtorEq, ite_false]
   rw [← sub_pos, sub_sub_sub_comm,
     harmonic_succ, Rat.cast_add, ← sub_sub, sub_self, zero_sub, sub_eq_add_neg, neg_sub,
     ← sub_eq_neg_add, sub_pos, ← log_div (by positivity) (by positivity), ← neg_lt_neg_iff,
@@ -146,7 +146,7 @@ lemma tendsto_eulerMascheroniSeq' :
   suffices Tendsto (fun x : ℝ ↦ log (x + 1) - log x) atTop (𝓝 0) by
     apply (this.comp tendsto_natCast_atTop_atTop).congr'
     filter_upwards [eventually_ne_atTop 0] with n hn
-    simp [eulerMascheroniSeq, eulerMascheroniSeq', eq_false_intro hn]
+    simp [eulerMascheroniSeq, eulerMascheroniSeq', eq_false hn]
   exact tendsto_log_comp_add_sub_log 1
 
 lemma tendsto_harmonic_sub_log :

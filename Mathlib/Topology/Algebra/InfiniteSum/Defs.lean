@@ -187,7 +187,7 @@ lemma tprod_bot (hL : ¬L.NeBot) (f : β → α) : ∏'[L] b, f b = ∏ᶠ b, f 
   have : L.LeAtTop := L.leAtTop_of_not_NeBot hL
   rw [L.support_eq_univ, Set.inter_univ, Set.mulIndicator_univ]
   by_cases hf : (mulSupport f).Finite
-  · rw [eq_true_intro hf, ite_eq_left]
+  · rw [eq_true hf, ite_eq_left]
     simp only [and_true]
     infer_instance
   · rwa [ite_eq_right (by tauto), ite_eq_left (hasProd_bot hL _ _), finprod_of_infinite_mulSupport]
