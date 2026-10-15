@@ -33,7 +33,7 @@ namespace Int
 
 
 theorem isCoprime_iff_nat_coprime {a b : ℤ} : IsCoprime a b ↔ Nat.Coprime a.natAbs b.natAbs := by
-  rw [isCoprime_iff_gcd_eq_one, Nat.coprime_iff_gcd_eq_one, gcd_eq_natAbs]
+  rw [isCoprime_iff_gcd_eq_one, Nat.coprime_iff_gcd_eq_one, gcd_eq_natAbs_gcd_natAbs]
 
 /-- If `gcd a (m * n) ≠ 1`, then `gcd a m ≠ 1` or `gcd a n ≠ 1`. -/
 theorem gcd_ne_one_iff_gcd_mul_right_ne_one {a : ℤ} {m n : ℕ} :

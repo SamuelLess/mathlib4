@@ -147,8 +147,9 @@ theorem exists_unit_of_abs (a : ℤ) : ∃ (u : ℤ) (_ : IsUnit u), (Int.natAbs
     rw [← neg_eq_iff_eq_neg.mpr h]
     simp only [neg_mul, one_mul]
 
+@[deprecated Int.gcd_eq_natAbs_gcd_natAbs (since := "2026-10-08")]
 theorem gcd_eq_natAbs {a b : ℤ} : Int.gcd a b = Nat.gcd a.natAbs b.natAbs :=
-  rfl
+  Int.gcd_eq_natAbs_gcd_natAbs a b
 end Int
 
 /-- Maps an associate class of integers consisting of `-n, n` to `n : ℕ` -/

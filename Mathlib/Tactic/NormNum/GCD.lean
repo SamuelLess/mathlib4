@@ -68,11 +68,11 @@ theorem nat_lcm_helper (x y d m : ℕ) (hd : Nat.gcd x y = d)
 
 theorem int_gcd_helper {x y : ℤ} {x' y' d : ℕ}
     (hx : x.natAbs = x') (hy : y.natAbs = y') (h : Nat.gcd x' y' = d) :
-    Int.gcd x y = d := by subst_vars; rw [Int.gcd_def]
+    Int.gcd x y = d := by subst_vars; rw [Int.gcd_eq_natAbs_gcd_natAbs]
 
 theorem int_lcm_helper {x y : ℤ} {x' y' d : ℕ}
     (hx : x.natAbs = x') (hy : y.natAbs = y') (h : Nat.lcm x' y' = d) :
-    Int.lcm x y = d := by subst_vars; rw [Int.lcm_def]
+    Int.lcm x y = d := by subst_vars; rw [Int.lcm_eq_natAbs_lcm_natAbs]
 
 open Qq Lean Elab.Tactic Mathlib.Meta.NormNum
 

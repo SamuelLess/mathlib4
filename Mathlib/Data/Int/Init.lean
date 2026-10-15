@@ -213,7 +213,7 @@ lemma ediv_of_neg_of_pos {a b : ℤ} (Ha : a < 0) (Hb : 0 < b) : ediv a b = -((-
 
 /-! ### mod -/
 
-@[simp, norm_cast] lemma natCast_mod (m n : ℕ) : (↑(m % n) : ℤ) = ↑m % ↑n := rfl
+@[deprecated (since := "2026-10-08")] alias natCast_mod := Int.natCast_emod
 
 lemma div_le_iff_of_dvd_of_pos (hb : 0 < b) (hba : b ∣ a) : a / b ≤ c ↔ a ≤ b * c :=
   ediv_le_iff_of_dvd_of_pos hb hba
