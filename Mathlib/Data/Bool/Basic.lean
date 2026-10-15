@@ -32,17 +32,16 @@ The remainder of this file contains lemmas about Booleans from mathlib 3.
 
 theorem true_eq_false_eq_False : ¬(true = false) := by decide
 
-theorem false_eq_true_eq_False : ¬(false = true) := by decide
+@[deprecated Bool.false_ne_true (since := "2026-10-08")]
+theorem false_eq_true_eq_False : ¬(false = true) := Bool.false_ne_true
 
 theorem eq_false_eq_not_eq_true (b : Bool) : (¬(b = true)) = (b = false) := by simp
 
 theorem eq_true_eq_not_eq_false (b : Bool) : (¬(b = false)) = (b = true) := by simp
 
-theorem eq_false_of_not_eq_true {b : Bool} : ¬b = true → b = false :=
-  Eq.mp (eq_false_eq_not_eq_true b)
+@[deprecated (since := "2026-10-08")] alias eq_false_of_not_eq_true := Bool.eq_false_of_ne_true
 
-theorem eq_true_of_not_eq_false {b : Bool} : ¬b = false → b = true :=
-  Eq.mp (eq_true_eq_not_eq_false b)
+@[deprecated (since := "2026-10-08")] alias eq_true_of_not_eq_false := Bool.eq_true_of_ne_false
 
 theorem and_eq_true_eq_eq_true_and_eq_true (a b : Bool) :
     ((a && b) = true) = (a = true ∧ b = true) := by simp
@@ -50,7 +49,7 @@ theorem and_eq_true_eq_eq_true_and_eq_true (a b : Bool) :
 theorem or_eq_true_eq_eq_true_or_eq_true (a b : Bool) :
     ((a || b) = true) = (a = true ∨ b = true) := by simp
 
-theorem not_eq_true_eq_eq_false (a : Bool) : (not a = true) = (a = false) := by grind
+@[deprecated (since := "2026-10-08")] alias not_eq_true_eq_eq_false := Bool.not_eq_true'
 
 theorem and_eq_false_eq_eq_false_or_eq_false (a b : Bool) :
     ((a && b) = false) = (a = false ∨ b = false) := by grind
@@ -58,7 +57,7 @@ theorem and_eq_false_eq_eq_false_or_eq_false (a b : Bool) :
 theorem or_eq_false_eq_eq_false_and_eq_false (a b : Bool) :
     ((a || b) = false) = (a = false ∧ b = false) := by grind
 
-theorem not_eq_false_eq_eq_true (a : Bool) : (not a = false) = (a = true) := by grind
+@[deprecated (since := "2026-10-08")] alias not_eq_false_eq_eq_true := Bool.not_eq_false'
 
 theorem coe_false : ↑false = False := by simp
 
@@ -68,27 +67,27 @@ theorem coe_sort_false : (false : Prop) = False := by simp
 
 theorem coe_sort_true : (true : Prop) = True := by simp
 
-theorem decide_iff (p : Prop) [d : Decidable p] : decide p = true ↔ p := by simp
+@[deprecated decide_eq_true_iff (since := "2026-10-08")]
+theorem decide_iff (p : Prop) [d : Decidable p] : decide p = true ↔ p := decide_eq_true_iff
 
 theorem decide_true {p : Prop} [Decidable p] : p → decide p :=
-  (decide_iff p).2
+  decide_eq_true_iff.2
 
 theorem of_decide_true {p : Prop} [Decidable p] : decide p → p :=
-  (decide_iff p).1
+  decide_eq_true_iff.1
 
 theorem bool_iff_false {b : Bool} : ¬b ↔ b = false := by grind
 
-theorem bool_eq_false {b : Bool} : ¬b → b = false :=
-  bool_iff_false.1
+@[deprecated (since := "2026-10-08")] alias bool_eq_false := Bool.eq_false_of_ne_true
 
+@[deprecated decide_eq_false_iff_not (since := "2026-10-08")]
 theorem decide_false_iff (p : Prop) {_ : Decidable p} : decide p = false ↔ ¬p :=
-  bool_iff_false.symm.trans (not_congr (decide_iff _))
+  decide_eq_false_iff_not
 
 theorem decide_false {p : Prop} [Decidable p] : ¬p → decide p = false :=
-  (decide_false_iff p).2
+  decide_eq_false_iff_not.2
 
-theorem of_decide_false {p : Prop} [Decidable p] : decide p = false → ¬p :=
-  (decide_false_iff p).1
+@[deprecated (since := "2026-10-08")] alias of_decide_false := of_decide_eq_false
 
 theorem decide_congr {p q : Prop} [Decidable p] [Decidable q] (h : p ↔ q) : decide p = decide q :=
   decide_eq_decide.mpr h
@@ -111,9 +110,9 @@ theorem and_intro : ∀ {a b : Bool}, a → b → a && b := by decide
 
 theorem and_elim_right : ∀ {a b : Bool}, a && b → b := by decide
 
-lemma eq_not_iff : ∀ {a b : Bool}, a = !b ↔ a ≠ b := by decide
+@[deprecated (since := "2026-10-08")] alias eq_not_iff := Bool.eq_not
 
-lemma not_eq_iff : ∀ {a b : Bool}, (!a) = b ↔ a ≠ b := by decide
+@[deprecated (since := "2026-10-08")] alias not_eq_iff := Bool.not_eq
 
 theorem ne_not {a b : Bool} : a ≠ !b ↔ a = b :=
   not_eq_not

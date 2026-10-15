@@ -195,7 +195,7 @@ open Nat.Partrec.Code Computable
 
 theorem computable_iff {p : α → Prop} :
     ComputablePred p ↔ ∃ f : α → Bool, Computable f ∧ p = fun a => (f a : Prop) :=
-  ⟨fun ⟨_, h⟩ => ⟨_, h, funext fun _ => propext (Bool.decide_iff _).symm⟩, by
+  ⟨fun ⟨_, h⟩ => ⟨_, h, funext fun _ => propext decide_eq_true_iff.symm⟩, by
     rintro ⟨f, h, rfl⟩; exact ⟨by infer_instance, by simpa using h⟩⟩
 
 protected theorem not {p : α → Prop} :

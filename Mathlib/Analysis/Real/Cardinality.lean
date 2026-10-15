@@ -170,13 +170,13 @@ theorem cantorFunction_injective (h1 : 0 < c) (h2 : c < 1 / 2) :
     cases fn : f n
     · apply _root_.ne_of_lt
       refine increasing_cantorFunction h1 h2 hn fn ?_
-      apply Bool.eq_true_of_not_eq_false
+      apply Bool.eq_true_of_ne_false
       rw [← fn]
       apply Ne.symm
       exact Nat.find_spec this
     · apply _root_.ne_of_gt
       refine increasing_cantorFunction h1 h2 (fun k hk => (hn k hk).symm) ?_ fn
-      apply Bool.eq_false_of_not_eq_true
+      apply Bool.eq_false_of_ne_true
       rw [← fn]
       apply Ne.symm
       exact Nat.find_spec this
