@@ -245,7 +245,7 @@ theorem succAbove_cycleRange (i j : Fin n) :
   · rw [Fin.cycleRange_of_gt hgt, Fin.succAbove_of_le_castSucc, swap_apply_of_ne_of_ne]
     · apply Fin.succ_ne_zero
     · apply (Fin.succ_injective _).ne hgt.ne.symm
-    · simpa [Fin.le_iff_val_le_val] using hgt
+    · simpa [Fin.le_def] using hgt
 
 @[simp]
 theorem cycleRange_succAbove (i : Fin (n + 1)) (j : Fin n) :

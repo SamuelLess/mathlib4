@@ -212,7 +212,7 @@ theorem head_le_of_mem {s : CompositionSeries X} {x : X} (hx : x ∈ s) : s.head
   hi ▸ head_le _
 
 theorem last_eraseLast_le (s : CompositionSeries X) : s.eraseLast.last ≤ s.last := by
-  simp [eraseLast, last, s.strictMono.le_iff_le, Fin.le_iff_val_le_val]
+  simp [eraseLast, last, s.strictMono.le_iff_le, Fin.le_def]
 
 set_option backward.isDefEq.respectTransparency.types false in
 theorem mem_eraseLast_of_ne_of_mem {s : CompositionSeries X} {x : X}

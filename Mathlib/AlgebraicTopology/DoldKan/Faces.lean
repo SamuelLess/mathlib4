@@ -126,7 +126,7 @@ theorem comp_Hσ_eq {Y : C} {n a q : ℕ} {φ : Y ⟶ X _⦋n + 1⦌} (v : Highe
     simp only
     have hia : (⟨i, by lia⟩ : Fin (n + 2)) ≤
         Fin.castSucc (⟨a, by lia⟩ : Fin (n + 1)) := by
-      rw [Fin.le_iff_val_le_val]
+      rw [Fin.le_def]
       dsimp
       lia
     generalize_proofs
@@ -188,7 +188,7 @@ theorem induction {Y : C} {n q : ℕ} {φ : Y ⟶ X _⦋n + 1⦌} (v : HigherFac
   · -- case where `a<m`
     rw [← X.δ_comp_δ''_assoc]
     swap
-    · rw [Fin.le_iff_val_le_val]
+    · rw [Fin.le_def]
       dsimp
       lia
     simp only [← assoc, v j (by lia), zero_comp]

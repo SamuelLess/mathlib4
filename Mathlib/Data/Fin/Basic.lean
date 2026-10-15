@@ -162,8 +162,7 @@ protected alias lt_or_ge := Fin.lt_or_le
 It is preferred since it follows the mathlib naming convention. -/
 protected alias le_or_gt := Fin.le_or_lt
 
-theorem le_iff_val_le_val {a b : Fin n} : a ≤ b ↔ (a : ℕ) ≤ b :=
-  Iff.rfl
+@[deprecated (since := "2026-10-08")] alias le_iff_val_le_val := Fin.le_def
 
 /-- `a < b` as natural numbers if and only if `a < b` in `Fin n`. -/
 @[norm_cast, simp]
@@ -257,7 +256,7 @@ theorem coe_int_add_eq_mod {n : Nat} (u v : Fin n) :
 attribute [fin_omega] coe_int_sub_eq_ite coe_int_add_eq_ite
 
 -- Rewrite inequalities in `Fin` to inequalities in `ℕ`
-attribute [fin_omega] Fin.lt_iff_val_lt_val Fin.le_iff_val_le_val
+attribute [fin_omega] Fin.lt_iff_val_lt_val Fin.le_def
 
 -- Rewrite `1 : Fin (n + 2)` to `1 : ℤ`
 attribute [fin_omega] val_one
@@ -348,7 +347,7 @@ lemma one_le_of_ne_zero {n : ℕ} {k : Fin n} :
   obtain ⟨n, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (NeZero.ne n)
   cases n with
   | zero => simp only [Fin.isValue, Fin.zero_le]
-  | succ n => rwa [Fin.le_iff_val_le_val, Fin.val_one, Nat.one_le_iff_ne_zero, val_ne_zero_iff]
+  | succ n => rwa [Fin.le_def, Fin.val_one, Nat.one_le_iff_ne_zero, val_ne_zero_iff]
 
 lemma val_sub_one_of_ne_zero {i : Fin n} :
     haveI := i.neZero
@@ -410,7 +409,7 @@ variable {a b : ℕ}
 
 lemma natCast_le_natCast (han : a ≤ n) (hbn : b ≤ n) : (a : Fin (n + 1)) ≤ b ↔ a ≤ b := by
   rw [← Nat.lt_succ_iff] at han hbn
-  simp [le_iff_val_le_val, -val_fin_le, Nat.mod_eq_of_lt, han, hbn]
+  simp [le_def, -val_fin_le, Nat.mod_eq_of_lt, han, hbn]
 
 lemma natCast_lt_natCast (han : a ≤ n) (hbn : b ≤ n) : (a : Fin (n + 1)) < b ↔ a < b := by
   rw [← Nat.lt_succ_iff] at han hbn; simp [lt_def, Nat.mod_eq_of_lt, han, hbn]

@@ -171,7 +171,7 @@ theorem intervalGapsWithin_fst_le_snd {a b : α} (hab : a ≤ b)
   simp only [Set.not_disjoint_iff, Set.mem_Icc]
   use (G ⟨j, by omega⟩).1
   have hG : (G ⟨j - 1, by omega⟩).1 ≤ (G ⟨j, by omega⟩).1 :=
-    Prod.Lex.le_iff'.mp (G.monotone (by simp [le_iff_val_le_val])) |>.left
+    Prod.Lex.le_iff'.mp (G.monotone (by simp [Fin.le_def])) |>.left
   have hFabi := hFab (z := G ⟨j, by omega⟩) (by simp [G, F.orderEmbOfFin_mem (α := α ×ₗ α)])
   simp [hFabi, this.le, hG]
 

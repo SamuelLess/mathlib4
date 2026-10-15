@@ -19,7 +19,7 @@ namespace Fin
 
 public lemma clamp_monotone {m : ℕ} : Monotone (fun n ↦ clamp n m) := by
   intro a b h
-  rw [le_iff_val_le_val]
+  rw [le_def]
   exact min_le_min_right m h
 
 public lemma clamp_eq_last (n m : ℕ) (hmn : m ≤ n) :

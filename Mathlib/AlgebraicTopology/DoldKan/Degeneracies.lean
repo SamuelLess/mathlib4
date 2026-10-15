@@ -114,7 +114,7 @@ theorem σ_comp_P_eq_zero (X : SimplicialObject C) {n q : ℕ} (i : Fin (n + 1))
         rw [assoc, assoc, assoc, hi',
           SimplicialObject.σ_comp_σ_assoc, reassoc_of% eq, zero_comp, comp_zero, comp_zero,
           comp_zero]
-        simp only [Fin.rev_eq j hk.symm, Fin.le_iff_val_le_val]
+        simp only [Fin.rev_eq j hk.symm, Fin.le_def]
         lia
 
 @[reassoc (attr := simp)]

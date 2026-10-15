@@ -526,7 +526,7 @@ def _root_.Fin.succFunctor (n : ℕ) : Fin n ⥤ Fin (n + 1) where
 @[simps!]
 def _root_.Fin.natAddLEFunctor {n k l : ℕ} (h : k + l ≤ n) : Fin (l + 1) ⥤ Fin (n + 1) where
   obj := fun ⟨i, _⟩ => ⟨k + i , by lia⟩
-  map {_ _} hij := homOfLE (by rw [Fin.le_iff_val_le_val]; simpa using (leOfHom hij))
+  map {_ _} hij := homOfLE (by rw [Fin.le_def]; simpa using (leOfHom hij))
 
 /-- The functor `ComposableArrows C n ⥤ ComposableArrows C l` obtained by precomposition with
 the functor `Fin.natAddLEFunctor`. -/

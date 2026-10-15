@@ -60,7 +60,7 @@ theorem compare_eq_compare_val (a b : Fin n) : compare a b = compare a.val b.val
 
 instance instLinearOrder : LinearOrder (Fin n) :=
   Fin.val_injective.linearOrder _
-    Fin.le_iff_val_le_val Fin.lt_def val_min val_max compare_eq_compare_val
+    Fin.le_def Fin.lt_def val_min val_max compare_eq_compare_val
 
 instance instBoundedOrder [NeZero n] : BoundedOrder (Fin n) where
   top := rev 0
@@ -243,7 +243,7 @@ theorem castLE_lt_castLE_iff {i j : Fin n} (h : n ≤ m) : i.castLE h < j.castLE
 lemma predAbove_right_monotone (p : Fin n) : Monotone p.predAbove := fun a b H => by
   dsimp [predAbove]
   split_ifs with ha hb hb
-  all_goals simp only [le_iff_val_le_val, val_pred]
+  all_goals simp only [le_def, val_pred]
   · exact pred_le_pred H
   · calc
       _ ≤ _ := Nat.pred_le _

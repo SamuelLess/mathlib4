@@ -113,7 +113,7 @@ theorem eq_second_of_chain_of_prime_dvd {p q r : Associates M} {n : ℕ} (hn : n
   · contradiction
   obtain ⟨i, rfl⟩ := h₂.1 (dvd_trans hp' hr)
   congrm c $(eq_of_le_of_not_lt' ?_ fun hi => ?_)
-  · rw [Fin.le_iff_val_le_val, Fin.val_one, Nat.succ_le_iff, ← Fin.val_zero (n.succ + 1), ←
+  · rw [Fin.le_def, Fin.val_one, Nat.succ_le_iff, ← Fin.val_zero (n.succ + 1), ←
       Fin.lt_def, Fin.pos_iff_ne_zero]
     rintro rfl
     exact hp.not_isUnit (first_of_chain_isUnit h₁ @h₂)

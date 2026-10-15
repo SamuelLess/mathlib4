@@ -443,10 +443,10 @@ The first `k + 1` elements of `Fin (n + 1)` are `m`-Freiman isomorphic to the fi
 of `ℕ` assuming there is no wrap-around. -/
 lemma isAddFreimanIso_Iic (hm : m ≠ 0) (hkmn : m * k ≤ n) :
     IsAddFreimanIso m (Iic (k : Fin (n + 1))) (Iic k) val where
-  bijOn.left := by simp [MapsTo, Fin.le_iff_val_le_val, Nat.mod_eq_of_lt, aux hm hkmn]
+  bijOn.left := by simp [MapsTo, Fin.le_def, Nat.mod_eq_of_lt, aux hm hkmn]
   bijOn.right.left := val_injective.injOn
   bijOn.right.right x (hx : x ≤ _) :=
-    ⟨x, by simpa [le_iff_val_le_val, -val_fin_le, Nat.mod_eq_of_lt, aux hm hkmn, hx.trans_lt]⟩
+    ⟨x, by simpa [le_def, -val_fin_le, Nat.mod_eq_of_lt, aux hm hkmn, hx.trans_lt]⟩
   map_sum_eq_map_sum s t hsA htA hs ht := by
     have (u : Multiset (Fin (n + 1))) : Nat.castRingHom _ (u.map val).sum = u.sum := by simp
     rw [← this, ← this]
@@ -454,7 +454,7 @@ lemma isAddFreimanIso_Iic (hm : m ≠ 0) (hkmn : m * k ≤ n) :
         (u.map val).sum < (n + 1) := Nat.lt_succ_iff.2 <| hkmn.trans' <| by
       rw [← hu, ← card_map]
       refine sum_le_card_nsmul (u.map val) k ?_
-      simpa [le_iff_val_le_val, -val_fin_le, Nat.mod_eq_of_lt, aux hm hkmn] using huk
+      simpa [le_def, -val_fin_le, Nat.mod_eq_of_lt, aux hm hkmn] using huk
     exact ⟨congr_arg _, CharP.natCast_injOn_Iio _ (n + 1) (this hsA hs) (this htA ht)⟩
 
 /-- **No wrap-around principle**.
@@ -467,7 +467,7 @@ lemma isAddFreimanIso_Iio (hm : m ≠ 0) (hkmn : m * k ≤ n) :
   · simp
   have hkmn' : m * k ≤ n := (Nat.mul_le_mul_left _ k.le_succ).trans hkmn
   convert isAddFreimanIso_Iic hm hkmn' using 1 <;> ext x
-  · simp only [Nat.cast_add, Nat.cast_one, mem_Iio, lt_def, mem_Iic, le_iff_val_le_val,
+  · simp only [Nat.cast_add, Nat.cast_one, mem_Iio, lt_def, mem_Iic, le_def,
       val_natCast, aux hm hkmn', Nat.mod_eq_of_lt]
     simp_rw [← Nat.cast_add_one]
     rw [Fin.val_cast_of_lt (aux hm hkmn), Nat.lt_succ_iff]

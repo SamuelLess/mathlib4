@@ -202,7 +202,7 @@ lemma δ_comp_δ'_apply {n} {i : Fin (n + 2)} {j : Fin (n + 3)} (H : Fin.castSuc
 
 lemma δ_comp_δ''_apply {n} {i : Fin (n + 3)} {j : Fin (n + 2)} (H : i ≤ Fin.castSucc j)
     (x : S _⦋n + 2⦌) :
-    S.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_iff_val_le_val.mp H) j.is_lt)) (S.δ j.succ x) =
+    S.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_def.mp H) j.is_lt)) (S.δ j.succ x) =
       S.δ j (S.δ i x) := congr_hom (S.δ_comp_δ'' H) x
 
 lemma δ_comp_δ_self_apply {n} {i : Fin (n + 2)} (x : S _⦋n + 2⦌) :

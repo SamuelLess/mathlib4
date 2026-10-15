@@ -122,7 +122,7 @@ theorem δ_comp_δ' {n} {i : Fin (n + 2)} {j : Fin (n + 3)} (H : Fin.castSucc i 
   simp only [← X.map_comp, ← op_comp, SimplexCategory.δ_comp_δ' H]
 @[reassoc]
 theorem δ_comp_δ'' {n} {i : Fin (n + 3)} {j : Fin (n + 2)} (H : i ≤ Fin.castSucc j) :
-    X.δ j.succ ≫ X.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_iff_val_le_val.mp H) j.is_lt)) =
+    X.δ j.succ ≫ X.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_def.mp H) j.is_lt)) =
       X.δ i ≫ X.δ j := by
   dsimp [δ]
   simp only [← X.map_comp, ← op_comp, SimplexCategory.δ_comp_δ'' H]
@@ -595,7 +595,7 @@ theorem δ_comp_δ' {n} {i : Fin (n + 2)} {j : Fin (n + 3)} (H : Fin.castSucc i 
 
 @[reassoc]
 theorem δ_comp_δ'' {n} {i : Fin (n + 3)} {j : Fin (n + 2)} (H : i ≤ Fin.castSucc j) :
-    X.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_iff_val_le_val.mp H) j.is_lt)) ≫ X.δ j.succ =
+    X.δ (i.castLT (Nat.lt_of_le_of_lt (Fin.le_def.mp H) j.is_lt)) ≫ X.δ j.succ =
       X.δ j ≫ X.δ i := by
   dsimp [δ]
   simp only [← X.map_comp, SimplexCategory.δ_comp_δ'' H]

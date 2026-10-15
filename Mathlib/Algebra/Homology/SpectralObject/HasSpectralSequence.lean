@@ -220,9 +220,9 @@ def coreE₂CohomologicalFin (l : ℕ) :
   i₂ pq := pq.2.succ
   i₃ r pq hr := Fin.clamp (pq.2.1 + (r - 1)).toNat _
   le₀₁ := by rintro r ⟨p, q, hq⟩ hr; simp; lia
-  le₁₂ pq := by simp [Fin.le_iff_val_le_val]
+  le₁₂ pq := by simp [Fin.le_def]
   le₂₃ r pq hr := by
-    simp only [Fin.le_iff_val_le_val, Fin.val_succ, le_min_iff, Fin.clamp]
+    simp only [Fin.le_def, Fin.val_succ, le_min_iff, Fin.clamp]
     grind
   hc _ _ _ := fun ⟨h₁, h₂⟩ ↦ by lia
   hc₀₂ r := by
