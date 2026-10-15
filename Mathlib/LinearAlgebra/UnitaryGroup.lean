@@ -87,11 +87,11 @@ theorem kronecker_mem_unitary {U₁ : Matrix n n R} {U₂ : Matrix m m R}
     rw [Finset.sum_comm]
     simp_rw [← Finset.sum_mul, ← Finset.mul_sum, ← Matrix.mul_apply, hU₁.1, Matrix.one_apply,
       mul_boole, ite_mul, zero_mul, Finset.sum_ite_irrel, ← Matrix.mul_apply, hU₂.1,
-      Matrix.one_apply, Finset.sum_const_zero, ← ite_and, Prod.eq_iff_fst_eq_snd_eq]
+      Matrix.one_apply, Finset.sum_const_zero, ← ite_and, Prod.ext_iff]
   · simp_rw [mul_assoc _ _ (star U₂ _ _), ← Finset.univ_product_univ, Finset.sum_product,
       ← Finset.sum_mul, ← Finset.mul_sum, ← Matrix.mul_apply, hU₂.2, Matrix.one_apply, mul_boole,
       ite_mul, zero_mul, Finset.sum_ite_irrel, ← Matrix.mul_apply, hU₁.2, Matrix.one_apply,
-      Finset.sum_const_zero, ← ite_and, Prod.eq_iff_fst_eq_snd_eq, and_comm]
+      Finset.sum_const_zero, ← ite_and, Prod.ext_iff, and_comm]
 end
 
 section

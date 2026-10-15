@@ -149,7 +149,7 @@ lemma range_tensorHom {X₁ X₂ Y₁ Y₂ : SSet.{u}} (f₁ : X₁ ⟶ Y₁) (f
   ext m ⟨y₁, y₂⟩
   constructor
   · rintro ⟨⟨x₁, x₂⟩, h⟩
-    rw [Prod.eq_iff_fst_eq_snd_eq] at h
+    rw [Prod.ext_iff] at h
     exact ⟨⟨x₁, h.1⟩, ⟨x₂, h.2⟩⟩
   · rintro ⟨⟨x₁, rfl⟩, ⟨x₂, rfl⟩⟩
     exact ⟨⟨x₁, x₂⟩, rfl⟩

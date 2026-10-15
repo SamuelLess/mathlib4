@@ -449,15 +449,16 @@ theorem nonempty_quotient_iff (s : Setoid α) : Nonempty (Quotient s) ↔ Nonemp
 /-! ### Truncation -/
 
 
+@[deprecated equivalence_true (since := "2026-10-08")]
 theorem true_equivalence : @Equivalence α fun _ _ ↦ True :=
-  ⟨fun _ ↦ trivial, fun _ ↦ trivial, fun _ _ ↦ trivial⟩
+  equivalence_true α
 
 /-- Always-true relation as a `Setoid`.
 
 Note that in later files the preferred spelling is `⊤ : Setoid α`. -/
 @[instance_reducible]
 def trueSetoid : Setoid α :=
-  ⟨_, true_equivalence⟩
+  ⟨_, equivalence_true α⟩
 
 /-- `Trunc α` is the quotient of `α` by the always-true relation. This
   is related to the propositional truncation in HoTT, and is similar

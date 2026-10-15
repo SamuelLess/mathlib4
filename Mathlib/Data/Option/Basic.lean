@@ -82,15 +82,14 @@ theorem bind_congr' {f g : α → Option β} {x y : Option α} (hx : x = y)
 theorem joinM_eq_join : joinM = @join α :=
   funext fun _ ↦ rfl
 
-theorem bind_eq_bind' {α β : Type u} {f : α → Option β} {x : Option α} : x >>= f = x.bind f :=
-  rfl
+@[deprecated (since := "2026-10-08")] alias bind_eq_bind' := Option.bind_apply
 
 theorem map_coe {α β} {a : α} {f : α → β} : f <$> (a : Option α) = ↑(f a) :=
   rfl
 
-@[simp]
+@[deprecated Option.map_some (since := "2026-10-08")]
 theorem map_coe' {a : α} {f : α → β} : Option.map f (a : Option α) = ↑(f a) :=
-  rfl
+  Option.map_some a f
 
 /-- `Option.map` as a function between functions is injective. -/
 theorem map_injective' : Function.Injective (@Option.map α β) := fun f g h ↦

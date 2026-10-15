@@ -120,8 +120,7 @@ theorem _root_.Function.Semiconj.swap_map (f : α → α) (g : β → β) :
     Function.Semiconj swap (map f g) (map g f) :=
   Function.semiconj_iff_comp_eq.2 (map_comp_swap g f).symm
 
-theorem eq_iff_fst_eq_snd_eq : ∀ {p q : α × β}, p = q ↔ p.1 = q.1 ∧ p.2 = q.2
-  | ⟨p₁, p₂⟩, ⟨q₁, q₂⟩ => by simp
+@[deprecated (since := "2026-10-08")] alias eq_iff_fst_eq_snd_eq := Prod.ext_iff
 
 theorem fst_eq_iff : ∀ {p : α × β} {x : α}, p.1 = x ↔ p = (x, p.2)
   | ⟨a, b⟩, x => by simp

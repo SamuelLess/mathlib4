@@ -233,14 +233,11 @@ theorem WellFounded.psigma_lex
     (ha : WellFounded r) (hb : ∀ x, WellFounded (s x)) : WellFounded (Lex r s) :=
   WellFounded.intro fun ⟨a, b⟩ => lexAccessible (WellFounded.apply ha a) hb b
 
-theorem WellFounded.psigma_revLex
-    {α : Sort*} {β : Sort*} {r : α → α → Prop} {s : β → β → Prop}
-    (ha : WellFounded r) (hb : WellFounded s) : WellFounded (RevLex r s) :=
-  WellFounded.intro fun ⟨a, b⟩ => revLexAccessible (apply hb b) (WellFounded.apply ha) a
+@[deprecated (since := "2026-10-08")] alias WellFounded.psigma_revLex := PSigma.revLex
 
 theorem WellFounded.psigma_skipLeft (α : Type u) {β : Type v} {s : β → β → Prop}
     (hb : WellFounded s) : WellFounded (SkipLeft α s) :=
-  psigma_revLex emptyWf.wf hb
+  PSigma.revLex emptyWf.wf hb
 
 end PSigma
 

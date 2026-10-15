@@ -358,7 +358,7 @@ theorem toWord_mk_mul_eq (a : α) (b : Bool) (x : FreeGroup α) :
   simp [toWord_mul]
   cases x.toWord
   · simp
-  · simp [Prod.eq_iff_fst_eq_snd_eq]
+  · simp [Prod.ext_iff]
     grind
 
 @[to_additive]
@@ -378,7 +378,7 @@ theorem idxOf_toWord_of_mul_eq {a : α} (x : FreeGroup α) {b : α × Bool} (hb�
   split_ifs with h
   · have : x.toWord ≠ [] := by grind
     rw [List.head?_eq_some_head this, Option.some.injEq] at h
-    exact List.idxOf_tail_of_head_ne this (by simp [h, Prod.eq_iff_fst_eq_snd_eq, hb₁.symm])
+    exact List.idxOf_tail_of_head_ne this (by simp [h, Prod.ext_iff, hb₁.symm])
   · grind
 
 @[to_additive]
