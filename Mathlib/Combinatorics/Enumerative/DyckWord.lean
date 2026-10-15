@@ -121,7 +121,7 @@ lemma head_eq_U (p : DyckWord) (h) : p.toList.head h = U := by
 /-- The last element of a nonempty Dyck word is `D`. -/
 lemma getLast_eq_D (p : DyckWord) (h) : p.toList.getLast h = D := by
   by_contra f; have s := p.count_U_eq_count_D
-  rw [← dropLast_append_getLast h, (dichotomy _).resolve_right f] at s
+  rw [← dropLast_concat_getLast h, (dichotomy _).resolve_right f] at s
   simp_rw [dropLast_eq_take, count_append, count_singleton', ite_true, reduceCtorEq, ite_false] at s
   have := p.count_D_le_count_U (p.toList.length - 1); lia
 
@@ -134,7 +134,7 @@ lemma cons_tail_dropLast_concat : U :: p.toList.dropLast.tail ++ [D] = p := by
     · rename_i bal _
       cases s <;> simp at bal
     · tauto
-  nth_rw 2 [← p.toList.dropLast_append_getLast h', ← p.toList.dropLast.take_append_drop 1]
+  nth_rw 2 [← p.toList.dropLast_concat_getLast h', ← p.toList.dropLast.take_append_drop 1]
   rw [getLast_eq_D, drop_one, this, head_eq_U]
   rfl
 

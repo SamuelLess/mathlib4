@@ -125,7 +125,7 @@ theorem le_length_digits_le (b n m : ℕ) (h : n ≤ m) : (digits b n).length �
 
 theorem pow_length_le_mul_ofDigits {b : ℕ} {l : List ℕ} (hl : l ≠ []) (hl2 : l.getLast hl ≠ 0) :
     (b + 2) ^ l.length ≤ (b + 2) * ofDigits (b + 2) l := by
-  rw [← List.dropLast_append_getLast hl]
+  rw [← List.dropLast_concat_getLast hl]
   simp only [List.length_append, List.length, zero_add, List.length_dropLast, ofDigits_append,
     List.length_dropLast, ofDigits_singleton, add_comm (l.length - 1), pow_add, pow_one]
   apply Nat.mul_le_mul_left

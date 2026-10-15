@@ -80,9 +80,11 @@ end Map₂Right'
 
 /-! ### zipWith -/
 
-theorem nil_zipWith (f : α → β → γ) (l : List β) : zipWith f [] l = [] := by cases l <;> rfl
+@[deprecated zipWith_nil_left +typeChanged (since := "2026-10-08")]
+theorem nil_zipWith (f : α → β → γ) (l : List β) : zipWith f [] l = [] := zipWith_nil_left
 
-theorem zipWith_nil (f : α → β → γ) (l : List α) : zipWith f l [] = [] := by cases l <;> rfl
+@[deprecated zipWith_nil_right +typeChanged (since := "2026-10-08")]
+theorem zipWith_nil (f : α → β → γ) (l : List α) : zipWith f l [] = [] := zipWith_nil_right
 
 @[simp]
 theorem zipWith_flip (f : α → β → γ) : ∀ as bs, zipWith (flip f) bs as = zipWith f as bs

@@ -216,9 +216,9 @@ theorem closure_three_cycles_eq_alternating :
   | zero => simp [List.length_eq_zero_iff.1 hn, one_mem]
   | succ n ih =>
     rw [Nat.mul_succ] at hn
-    obtain ⟨a, l, rfl⟩ := l.exists_of_length_succ hn
+    obtain ⟨a, l, rfl⟩ := List.exists_cons_of_length_eq_add_one hn
     rw [List.length_cons, Nat.succ_inj] at hn
-    obtain ⟨b, l, rfl⟩ := l.exists_of_length_succ hn
+    obtain ⟨b, l, rfl⟩ := List.exists_cons_of_length_eq_add_one hn
     rw [List.prod_cons, List.prod_cons, ← mul_assoc]
     apply mul_mem <;> grind [IsSwap.mul_mem_closure_three_cycles]
 

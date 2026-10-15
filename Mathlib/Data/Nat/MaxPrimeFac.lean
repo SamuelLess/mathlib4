@@ -43,7 +43,7 @@ def maxPrimeFac (n : ℕ) : ℕ := n.primeFactorsList.getLastD n
 
 lemma prime_maxPrimeFac_of_one_lt (h : 1 < n) : n.maxPrimeFac.Prime := by
   have : n.primeFactorsList ≠ [] := by simp; lia
-  simpa [maxPrimeFac, List.getLast?_eq_getLast_of_ne_nil this]
+  simpa [maxPrimeFac, List.getLast?_eq_some_getLast this]
     using prime_of_mem_primeFactorsList <| List.getLast_mem _
 
 /-- The greatest prime factor of a natural number divides it. -/
@@ -51,14 +51,14 @@ lemma maxPrimeFac_dvd : ∀ {n : ℕ}, maxPrimeFac n ∣ n
   | 0 | 1 => by simp
   | n + 2 => by
     have : (n + 2).primeFactorsList ≠ [] := by simp
-    simpa [maxPrimeFac, List.getLast?_eq_getLast_of_ne_nil this]
+    simpa [maxPrimeFac, List.getLast?_eq_some_getLast this]
       using dvd_of_mem_primeFactorsList <| List.getLast_mem _
 
 /-- Every prime factor of a nonzero natural number is at most its greatest prime factor. -/
 lemma le_maxPrimeFac (hn : n ≠ 0) (hp : p.Prime) (h_dvd : p ∣ n) :
     p ≤ maxPrimeFac n := by
   have := (mem_primeFactorsList hn).2 ⟨hp, h_dvd⟩
-  simpa [maxPrimeFac, List.getLast?_eq_getLast_of_ne_nil <| List.ne_nil_of_mem this]
+  simpa [maxPrimeFac, List.getLast?_eq_some_getLast <| List.ne_nil_of_mem this]
     using (primeFactorsList_sorted n).pairwise.rel_getLast this
 
 /-- The greatest prime factor of a natural number greater than one is the greatest of its prime

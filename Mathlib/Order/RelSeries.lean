@@ -644,7 +644,7 @@ lemma toList_eraseLast (p : RelSeries r) (hp : p.length ≠ 0) :
 lemma snoc_self_eraseLast (p : RelSeries r) (h : p.length ≠ 0) :
     p.eraseLast.snoc p.last (p.eraseLast_last_rel_last h) = p := by
   apply toList_injective
-  rw [toList_snoc, ← getLast_toList, toList_eraseLast _ h, List.dropLast_append_getLast]
+  rw [toList_snoc, ← getLast_toList, toList_eraseLast _ h, List.dropLast_concat_getLast]
 
 /--
 To show a proposition `p` for `xs : RelSeries r` it suffices to show it for all singletons

@@ -207,7 +207,7 @@ decomposed as a concatenation of a subpath from `a` to `v` and a subpath from `v
 theorem exists_eq_comp_of_mem_vertices {v : V} (hv : v ∈ p.vertices) :
     ∃ (p₁ : Path a v) (p₂ : Path v b), p = p₁.comp p₂ := by
   obtain ⟨n, hn, rfl⟩ : ∃ n, ∃ hn : n < p.vertices.length, v = p.vertices[n] :=
-    exists_mem_iff_getElem.mp ⟨v, hv, rfl⟩
+    exists_mem_iff_exists_getElem.mp ⟨v, hv, rfl⟩
   obtain ⟨v, p₁, p₂, hp, hv, rfl⟩ := p.exists_eq_comp_and_length_eq_of_lt_length n hn
   exact ⟨p₁, p₂, hp⟩
 

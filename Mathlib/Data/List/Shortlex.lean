@@ -160,7 +160,7 @@ theorem wf (h : WellFounded r) : WellFounded (Shortlex r) := .intro fun a => by
     rw [len_a]
     exact Acc.intro _ <| fun _ ylt => (not_shortlex_nil_right ylt).elim
   | ind n ih =>
-    obtain ⟨head, tail, rfl⟩ := List.exists_of_length_succ a len_a
+    obtain ⟨head, tail, rfl⟩ := List.exists_cons_of_length_eq_add_one len_a
     rw [List.length_cons, add_left_inj] at len_a
     apply Acc.shortlex (WellFounded.apply h head) (ih n le_rfl tail len_a)
     intro l ll

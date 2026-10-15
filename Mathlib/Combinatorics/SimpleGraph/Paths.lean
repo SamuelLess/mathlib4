@@ -618,7 +618,7 @@ theorem isCycle_iff_isPath_tail_and_le_length {p : G.Walk u u} :
     simp only [getVert_cons_succ, tail_cons, isPath_copy, length_cons] at h₁ h₂
     refine p.cons_isCycle_iff h' |>.mpr ⟨h₁, fun hh ↦ ?_⟩
     have : p.support[0] = p.support[p.length - 1] := by
-      simp [← List.head_eq_getElem_zero, h₁.eq_penultimate_of_mem_edges hh]
+      simp [← List.head_eq_getElem, h₁.eq_penultimate_of_mem_edges hh]
     have := p.isPath_iff_injective_get_support.mp h₁ this
     lia
 

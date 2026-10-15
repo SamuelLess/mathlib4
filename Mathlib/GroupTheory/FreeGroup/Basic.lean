@@ -60,8 +60,6 @@ universe u v w
 
 variable {α : Type u}
 
-attribute [local simp] List.append_eq_has_append
-
 /- Ensure that `@[to_additive]` uses the right namespace before the definition of `FreeGroup`. -/
 insert_to_additive_translation FreeGroup FreeAddGroup
 

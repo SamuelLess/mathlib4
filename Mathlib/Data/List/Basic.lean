@@ -90,9 +90,9 @@ alias ⟨_, length_pos_of_ne_nil⟩ := length_pos_iff
 theorem length_pos_iff_ne_nil {l : List α} : 0 < length l ↔ l ≠ [] :=
   ⟨ne_nil_of_length_pos, length_pos_of_ne_nil⟩
 
-theorem exists_of_length_succ {n} : ∀ l : List α, l.length = n + 1 → ∃ h t, l = h :: t
-  | [], H => absurd H.symm <| succ_ne_zero n
-  | h :: t, _ => ⟨h, t, rfl⟩
+@[deprecated exists_cons_of_length_eq_add_one (since := "2026-10-08")]
+theorem exists_of_length_succ {n} : ∀ l : List α, l.length = n + 1 → ∃ h t, l = h :: t :=
+  fun _ => exists_cons_of_length_eq_add_one
 
 theorem length_eq_succ_iff {n} {l : List α} :
     l.length = n + 1 ↔ ∃ h t, h :: t = l ∧ t.length = n := by
@@ -195,8 +195,7 @@ lemma notMem_of_subset (h : l ⊆ l₁) {a : α} (ha : a ∉ l₁) : a ∉ l := 
 
 /-! ### append -/
 
-theorem append_eq_has_append {L₁ L₂ : List α} : List.append L₁ L₂ = L₁ ++ L₂ :=
-  rfl
+@[deprecated (since := "2026-10-08")] alias append_eq_has_append := append_eq
 
 theorem append_right_injective (s : List α) : Injective fun t ↦ s ++ t :=
   fun _ _ ↦ append_cancel_left
@@ -266,8 +265,9 @@ theorem bind_eq_flatMap {α β} (f : α → List β) (l : List α) : l >>= f = l
 theorem reverse_cons' (a : α) (l : List α) : reverse (a :: l) = concat (reverse l) a := by
   simp only [reverse_cons, concat_eq_append]
 
-theorem reverse_concat' (l : List α) (a : α) : (l ++ [a]).reverse = a :: l.reverse := by
-  rw [reverse_append]; rfl
+@[deprecated reverse_concat (since := "2026-10-08")]
+theorem reverse_concat' (l : List α) (a : α) : (l ++ [a]).reverse = a :: l.reverse :=
+  reverse_concat
 
 @[simp]
 theorem reverse_involutive : Involutive (@reverse α) :=
@@ -317,13 +317,7 @@ theorem getLast_concat' {a : α} (l : List α) : getLast (concat l a) (by simp) 
 @[simp]
 theorem getLast_singleton' (a : α) : getLast [a] (cons_ne_nil a []) = a := rfl
 
-theorem dropLast_append_getLast : ∀ {l : List α} (h : l ≠ []), dropLast l ++ [getLast l h] = l
-  | [], h => absurd rfl h
-  | [_], _ => rfl
-  | a :: b :: l, h => by
-    rw [dropLast_cons_cons, cons_append, getLast_cons (cons_ne_nil _ _)]
-    congr
-    exact dropLast_append_getLast (cons_ne_nil b l)
+@[deprecated (since := "2026-10-08")] alias dropLast_append_getLast := dropLast_concat_getLast
 
 theorem getLast_congr {l₁ l₂ : List α} (h₁ : l₁ ≠ []) (h₂ : l₂ ≠ []) (h₃ : l₁ = l₂) :
     getLast l₁ h₁ = getLast l₂ h₂ := by subst l₁; rfl
@@ -340,10 +334,8 @@ theorem mem_getLast?_eq_getLast : ∀ {l : List α} {x : α}, x ∈ l.getLast? �
   | [a], x, hx
   | a :: b :: l, x, hx => by grind
 
-theorem getLast?_eq_getLast_of_ne_nil : ∀ {l : List α} (h : l ≠ []), l.getLast? = some (l.getLast h)
-  | [], h => (h rfl).elim
-  | [_], _ => rfl
-  | _ :: b :: l, _ => @getLast?_eq_getLast_of_ne_nil (b :: l) (cons_ne_nil _ _)
+@[deprecated (since := "2026-10-08")]
+alias getLast?_eq_getLast_of_ne_nil := getLast?_eq_some_getLast
 
 theorem mem_getLast?_cons {x y : α} : ∀ {l : List α}, x ∈ l.getLast? → x ∈ (y :: l).getLast?
   | [], _ => by contradiction
@@ -395,9 +387,7 @@ theorem mem_dropLast_of_mem_of_ne_getLast? {a : α} (ha : a ∈ l) (ha' : a ≠ 
 @[simp]
 theorem head!_nil [Inhabited α] : ([] : List α).head! = default := rfl
 
-theorem head_eq_getElem_zero {l : List α} (hl : l ≠ []) :
-    l.head hl = l[0]'(length_pos_iff.2 hl) :=
-  (getElem_zero _).symm
+@[deprecated (since := "2026-10-08")] alias head_eq_getElem_zero := head_eq_getElem
 
 theorem head!_eq_head?_getD [Inhabited α] (l : List α) : head! l = (head? l).getD default := by
   cases l <;> rfl
@@ -458,22 +448,17 @@ theorem get_eq_getElem? (l : List α) (i : Fin l.length) :
     l.get i = l[i]?.get (by simp) := by
   simp
 
-theorem exists_mem_iff_getElem {l : List α} {p : α → Prop} :
-    (∃ x ∈ l, p x) ↔ ∃ (i : ℕ) (_ : i < l.length), p l[i] := by
-  simp only [mem_iff_getElem]
-  exact ⟨fun ⟨_x, ⟨i, hi, hix⟩, hxp⟩ ↦ ⟨i, hi, hix ▸ hxp⟩, fun ⟨i, hi, hp⟩ ↦ ⟨_, ⟨i, hi, rfl⟩, hp⟩⟩
+@[deprecated (since := "2026-10-08")] alias exists_mem_iff_getElem := exists_mem_iff_exists_getElem
 
 theorem exists_mem_iff_get {l : List α} {p : α → Prop} :
     (∃ x ∈ l, p x) ↔ ∃ (i : Fin l.length), p (l.get i) :=
-  exists_mem_iff_getElem.trans ⟨fun ⟨i, hi, h⟩ ↦ ⟨⟨i, hi⟩, h⟩, fun ⟨i, h⟩ ↦ ⟨i, i.isLt, h⟩⟩
+  exists_mem_iff_exists_getElem.trans ⟨fun ⟨i, hi, h⟩ ↦ ⟨⟨i, hi⟩, h⟩, fun ⟨i, h⟩ ↦ ⟨i, i.isLt, h⟩⟩
 
-theorem forall_mem_iff_getElem {l : List α} {p : α → Prop} :
-    (∀ x ∈ l, p x) ↔ ∀ (i : ℕ) (_ : i < l.length), p l[i] := by
-  simp [mem_iff_getElem, @forall_comm α]
+@[deprecated (since := "2026-10-08")] alias forall_mem_iff_getElem := forall_mem_iff_forall_getElem
 
 theorem forall_mem_iff_get {l : List α} {p : α → Prop} :
     (∀ x ∈ l, p x) ↔ ∀ (i : Fin l.length), p (l.get i) :=
-  forall_mem_iff_getElem.trans ⟨fun h i ↦ h i i.isLt, fun h i hi ↦ h ⟨i, hi⟩⟩
+  forall_mem_iff_forall_getElem.trans ⟨fun h i ↦ h i i.isLt, fun h i hi ↦ h ⟨i, hi⟩⟩
 
 @[simp]
 theorem get_surjective_iff {l : List α} : l.get.Surjective ↔ (∀ x, x ∈ l) :=
@@ -558,9 +543,9 @@ theorem idxOf_cons_ne {a b : α} (l : List α) (h : b ≠ a) : idxOf a (b :: l) 
 theorem idxOf_eq_length_iff {a : α} {l : List α} : idxOf a l = length l ↔ a ∉ l := by
   grind
 
-@[simp]
-theorem idxOf_of_notMem {l : List α} {a : α} : a ∉ l → idxOf a l = length l :=
-  idxOf_eq_length_iff.2
+attribute [simp] idxOf_eq_length
+
+@[deprecated (since := "2026-10-08")] alias idxOf_of_notMem := idxOf_eq_length
 
 theorem idxOf_eq_zero_iff_eq_nil_or_head_eq {l : List α} (a : α) :
     l.idxOf a = 0 ↔ l = [] ∨ l.head? = a := by
