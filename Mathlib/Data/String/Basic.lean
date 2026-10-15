@@ -82,8 +82,7 @@ theorem ltb_cons_addChar (c : Char) (cs₁ cs₂ : List Char) (i₁ i₂ : Pos.R
   rw [eq_comm, ← ltb_cons_addChar' c]
   simp
 
-theorem lt_iff_toList_lt {s₁ s₂ : String} : s₁ < s₂ ↔ s₁.toList < s₂.toList :=
-  Iff.rfl
+@[deprecated (since := "2026-10-08")] alias lt_iff_toList_lt := String.lt_iff
 
 @[simp]
 theorem lt_iff_ltb {s₁ s₂ : String} :
@@ -91,7 +90,7 @@ theorem lt_iff_ltb {s₁ s₂ : String} :
   rw [Iff.comm]
   obtain ⟨s₁, rfl⟩ := s₁.exists_eq_ofList
   obtain ⟨s₂, rfl⟩ := s₂.exists_eq_ofList
-  simp only [lt_iff_toList_lt, String.Legacy.iter, String.Legacy.mkIterator, String.toList_ofList]
+  simp only [String.lt_iff, String.Legacy.iter, String.Legacy.mkIterator, String.toList_ofList]
   induction s₁ generalizing s₂ <;> cases s₂
   · unfold ltb; decide
   · rename_i c₂ cs₂; apply iff_of_true
@@ -136,7 +135,7 @@ private theorem le_iff_not_lt {s₁ s₂ : String} : s₁ ≤ s₂ ↔ ¬ s₂ <
   Iff.rfl
 
 theorem le_iff_toList_le {s₁ s₂ : String} : s₁ ≤ s₂ ↔ s₁.toList ≤ s₂.toList := by
-  rw [String.le_iff_not_lt, lt_iff_toList_lt, not_lt]
+  rw [String.le_iff_not_lt, String.lt_iff, not_lt]
 
 instance : LinearOrder String where
   le_refl _ := le_iff_toList_le.mpr le_rfl
@@ -144,7 +143,7 @@ instance : LinearOrder String where
     simp only [le_iff_toList_le]
     apply le_trans
   lt_iff_le_not_ge a b := by
-    simp only [lt_iff_toList_lt, le_iff_toList_le, lt_iff_le_not_ge]
+    simp only [String.lt_iff, le_iff_toList_le, lt_iff_le_not_ge]
   le_antisymm a b := by
     simp only [le_iff_toList_le, ← toList_inj]
     apply le_antisymm
