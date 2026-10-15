@@ -171,7 +171,7 @@ theorem antitone_lowerCentralSeries : Antitone <| lowerCentralSeries R L M := by
   | zero => exact fun h ↦ (Nat.le_zero.mp h).symm ▸ le_rfl
   | succ k ih =>
     intro h
-    rcases Nat.of_le_succ h with (hk | hk)
+    rcases Nat.le_or_eq_of_le_succ h with (hk | hk)
     · rw [lowerCentralSeries_succ]
       exact (LieSubmodule.mono_lie_right ⊤ (ih hk)).trans (LieSubmodule.lie_le_right _ _)
     · exact hk.symm ▸ le_rfl

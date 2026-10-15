@@ -790,7 +790,7 @@ theorem iSup_succ_eq_sup {α} (f : ℕ → α → ℝ≥0∞) (m : ℕ) (a : α)
   rw [le_antisymm_iff, hc, hd]
   constructor
   · refine iSup₂_le fun n hn ↦ ?_
-    rcases Nat.of_le_succ hn with (h | h)
+    rcases Nat.le_or_eq_of_le_succ hn with (h | h)
     · exact le_sup_of_le_right (le_iSup₂ (f := fun k (_ : k ≤ m) ↦ f k a) n h)
     · exact h ▸ le_sup_left
   · refine sup_le ?_ (biSup_mono fun n hn ↦ hn.trans m.le_succ)

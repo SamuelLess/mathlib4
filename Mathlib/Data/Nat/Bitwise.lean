@@ -111,11 +111,9 @@ theorem xor_bit : ∀ a m b n, bit a m ^^^ bit b n = bit (bne a b) (m ^^^ n) :=
 
 attribute [simp] Nat.testBit_bitwise
 
-theorem testBit_lor : ∀ m n k, testBit (m ||| n) k = (testBit m k || testBit n k) :=
-  testBit_bitwise rfl
+@[deprecated (since := "2026-10-08")] alias testBit_lor := Nat.testBit_or
 
-theorem testBit_land : ∀ m n k, testBit (m &&& n) k = (testBit m k && testBit n k) :=
-  testBit_bitwise rfl
+@[deprecated (since := "2026-10-08")] alias testBit_land := Nat.testBit_and
 
 @[simp]
 theorem testBit_ldiff : ∀ m n k, testBit (ldiff m n) k = (testBit m k && not (testBit n k)) :=
@@ -233,11 +231,9 @@ theorem bitwise_comm {f : Bool → Bool → Bool} (hf : ∀ b b', f b b' = f b' 
     bitwise f = bitwise (swap f) := congr_arg _ <| funext fun _ => funext <| hf _
     _ = swap (bitwise f) := bitwise_swap
 
-theorem lor_comm (n m : ℕ) : n ||| m = m ||| n :=
-  bitwise_comm Bool.or_comm n m
+@[deprecated (since := "2026-10-08")] alias lor_comm := Nat.or_comm
 
-theorem land_comm (n m : ℕ) : n &&& m = m &&& n :=
-  bitwise_comm Bool.and_comm n m
+@[deprecated (since := "2026-10-08")] alias land_comm := Nat.and_comm
 
 lemma and_two_pow (n i : ℕ) : n &&& 2 ^ i = (n.testBit i).toNat * 2 ^ i := by
   refine eq_of_testBit_eq fun j => ?_
@@ -248,19 +244,11 @@ lemma and_two_pow (n i : ℕ) : n &&& 2 ^ i = (n.testBit i).toNat * 2 ^ i := by
   · simp [testBit_two_pow_of_ne hij]
 
 lemma two_pow_and (n i : ℕ) : 2 ^ i &&& n = 2 ^ i * (n.testBit i).toNat := by
-  rw [mul_comm, land_comm, and_two_pow]
+  rw [mul_comm, Nat.and_comm, and_two_pow]
 
-/-- Proving associativity of bitwise operations in general essentially boils down to a huge case
-    distinction, so it is shorter to use this tactic instead of proving it in the general case. -/
-local macro "bitwise_assoc_tac" : tactic => set_option hygiene false in `(tactic| (
-  induction n using Nat.binaryRec generalizing m k with | zero => simp | bit b n hn => ?_
-  induction m using Nat.binaryRec with | zero => simp | bit b' m hm => ?_
-  induction k using Nat.binaryRec <;>
-    simp [hn, Bool.or_assoc, Bool.and_assoc, Bool.bne_eq_xor]))
+@[deprecated (since := "2026-10-08")] alias land_assoc := Nat.and_assoc
 
-theorem land_assoc (n m k : ℕ) : (n &&& m) &&& k = n &&& (m &&& k) := by bitwise_assoc_tac
-
-theorem lor_assoc (n m k : ℕ) : (n ||| m) ||| k = n ||| (m ||| k) := by bitwise_assoc_tac
+@[deprecated (since := "2026-10-08")] alias lor_assoc := Nat.or_assoc
 
 theorem xor_trichotomy {a b c : ℕ} (h : a ^^^ b ^^^ c ≠ 0) :
     b ^^^ c < a ∨ c ^^^ a < b ∨ a ^^^ b < c := by

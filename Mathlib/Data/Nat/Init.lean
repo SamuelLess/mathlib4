@@ -63,7 +63,7 @@ lemma succ_pos' : 0 < succ n := succ_pos n
 
 alias _root_.LT.lt.nat_succ_le := succ_le_of_lt
 
-alias ⟨of_le_succ, _⟩ := le_succ_iff
+@[deprecated (since := "2026-10-08")] alias of_le_succ := Nat.le_or_eq_of_le_succ
 
 lemma two_lt_of_ne : ∀ {n}, n ≠ 0 → n ≠ 1 → n ≠ 2 → 2 < n
   | 0, h, _, _ => (h rfl).elim

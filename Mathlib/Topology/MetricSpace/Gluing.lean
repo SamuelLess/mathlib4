@@ -548,7 +548,7 @@ theorem inductiveLimitDist_eq_dist (I : ∀ n, Isometry (f n)) (x y : Σ n, X n)
       subst m'
       rfl
     · have : max x.1 y.1 ≤ succ m := by simp [hx, hy]
-      have : max x.1 y.1 ≤ m := by simpa [h] using of_le_succ this
+      have : max x.1 y.1 ≤ m := by simpa [h] using Nat.le_or_eq_of_le_succ this
       have xm : x.1 ≤ m := le_trans (le_max_left _ _) this
       have ym : y.1 ≤ m := le_trans (le_max_right _ _) this
       rw [leRecOn_succ xm, leRecOn_succ ym, (I m).dist_eq]
